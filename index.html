@@ -11,15 +11,17 @@
         @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap');
 
         :root {
+            --color-pink: #ffc0cb;
+            --color-blue: #87ceeb;
+            --color-green: #90ee90;
+            --color-orange: #ffa500;
+            --color-purple: #9370db;
             --text-color: #333;
-            --button-bg: #8e24aa;
-            --button-hover: #7b1fa2;
-            --card-bg: #e1bee7;
         }
 
         body {
             font-family: 'Sarabun', sans-serif;
-            background: linear-gradient(135deg, #fce4ec, #e1bee7);
+            background: linear-gradient(135deg, var(--color-pink), var(--color-blue));
             color: var(--text-color);
             margin: 0;
             padding: 20px;
@@ -33,132 +35,98 @@
         .container {
             background-color: #fff;
             padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
             width: 100%;
             max-width: 600px;
             box-sizing: border-box;
         }
 
         h1 {
-            color: #4a148c;
+            color: var(--color-purple);
+            font-size: 2.8em;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 1.5rem;
-            font-size: 2.5em;
         }
 
         /* Category Page */
-        #category-page {
-            display: block;
-        }
-
+        #category-page { display: block; }
         .category-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 1rem;
             margin-top: 1.5rem;
         }
-
         .category-button {
-            border: 2px solid;
-            color: #4a148c;
+            background-color: var(--color-green);
+            color: white;
+            border: none;
             padding: 1.5rem;
-            border-radius: 12px;
-            font-size: 1.2em;
+            border-radius: 50px; /* Pill shape */
+            font-size: 1.1em;
             font-weight: bold;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            background-color: #e1bee7;
-            border-color: #ba68c8;
+            box-shadow: 0 4px 0 #5f905f;
+            transition: all 0.2s ease-in-out;
         }
-        .category-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
+        .category-button:hover { transform: translateY(-3px); box-shadow: 0 7px 0 #5f905f; }
+        .category-button:active { transform: translateY(1px); box-shadow: none; }
 
         /* Lesson Page */
-        #lesson-page {
-            display: none;
-            text-align: center;
-        }
-
+        #lesson-page { display: none; }
         #vocab-card {
-            background-color: #f3e5f5;
-            border-radius: 12px;
+            background-color: var(--color-blue);
+            border-radius: 20px;
             padding: 2rem;
             min-height: 250px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-
         #thai-word {
-            font-size: 3em;
-            color: #4a148c;
+            font-size: 3.5em;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
             margin-bottom: 0.5rem;
         }
-
         #english-word {
-            font-size: 2em;
-            color: #333;
+            font-size: 2.5em;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
             margin-bottom: 1.5rem;
         }
-        
-        /* Navigation Buttons */
-        .navigation-buttons {
+        .control-group {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: 400px;
-            margin: 20px auto 0;
-        }
-
-        .navigation-buttons button {
-            background-color: #ffb74d;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background-color 0.2s, opacity 0.2s;
-        }
-        .navigation-buttons button:hover:not(:disabled) {
-            background-color: #ff9800;
-        }
-        .navigation-buttons button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-
-        .audio-buttons {
-            display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             gap: 1rem;
             margin-top: 1.5rem;
         }
-        
-        .audio-buttons button, .play-pause-btn, .back-btn {
-            background-color: #28a745;
-            color: #fff;
+        .control-group button {
+            color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 1em;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
             cursor: pointer;
-            transition: background-color 0.2s;
+            font-weight: bold;
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+            transition: all 0.2s ease-in-out;
         }
-        .audio-buttons button:hover, .play-pause-btn:hover, .back-btn:hover {
-            background-color: #218838;
-        }
+        .control-group button:hover { transform: translateY(-2px); box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2); }
+        .control-group button:active { transform: translateY(1px); box-shadow: none; }
+        .control-group button:disabled { background-color: #ccc; cursor: not-allowed; box-shadow: none; }
 
-        .play-pause-btn { background-color: #007bff; }
-        .play-pause-btn:hover { background-color: #0069d9; }
-        .back-btn { background-color: #6c757d; }
-        .back-btn:hover { background-color: #5a6268; }
-
+        .audio-btn { background-color: #32cd32; box-shadow: 0 4px 0 #228b22; }
+        .audio-btn:hover { background-color: #2e8b57; }
+        .nav-btn { background-color: #ff8c00; box-shadow: 0 4px 0 #e47d00; }
+        .nav-btn:hover { background-color: #e47d00; }
+        .play-btn { background-color: #1e90ff; box-shadow: 0 4px 0 #1c86ee; }
+        .play-btn:hover { background-color: #1c86ee; }
+        .back-btn { background-color: #a9a9a9; box-shadow: 0 4px 0 #8b8b8b; }
+        .back-btn:hover { background-color: #8b8b8b; }
     </style>
 </head>
 <body>
@@ -174,20 +142,20 @@
             <div id="vocab-card">
                 <span id="thai-word" class="word"></span>
                 <span id="english-word" class="word"></span>
-                <div class="audio-buttons">
-                    <button onclick="speakText(currentVocab.thai, 'th-TH')">ฟัง (ไทย) 🔊</button>
-                    <button onclick="speakText(currentVocab.english, 'en-US')">Listen (English) 🔊</button>
-                </div>
             </div>
             
-            <div class="navigation-buttons">
-                <button id="prev-btn">◀️ ย้อนกลับ</button>
-                <button id="next-btn">ถัดไป ▶️</button>
+            <div class="control-group">
+                <button id="prev-btn" class="nav-btn">◀️ ย้อนกลับ</button>
+                <button id="next-btn" class="nav-btn">ถัดไป ▶️</button>
             </div>
-
-            <div class="control-buttons">
-                <button id="play-pause-btn" class="play-pause-btn">Play ▶️</button>
-                <button id="back-btn" class="back-btn">Back to Categories 🏠</button>
+            <div class="control-group">
+                <button onclick="speakText(currentVocab.thai, 'th-TH')" class="audio-btn">ฟัง (ไทย) 🔊</button>
+                <button onclick="speakText(currentVocab.english, 'en-US')" class="audio-btn">Listen (EN) 🔊</button>
+            </div>
+            <div class="control-group">
+                <button id="play-pause-btn" class="play-btn">Play ▶️</button>
+                <button id="stop-btn" class="back-btn">Stop ⏹️</button>
+                <button id="back-to-cat-btn" class="back-btn">Back to Categories 🏠</button>
             </div>
         </div>
     </div>
@@ -225,7 +193,6 @@
                 { thai: "เดิน", english: "walk" }, { thai: "วิ่ง", english: "run" }, { thai: "นั่ง", english: "sit" }, { thai: "ยืน", english: "stand" }, { thai: "นอน", english: "sleep" }, { thai: "กิน", english: "eat" }, { thai: "ดื่ม", english: "drink" }, { thai: "เล่น", english: "play" }, { thai: "อ่าน", english: "read" }, { thai: "เขียน", english: "write" }, { thai: "วาด", english: "draw" }, { thai: "ระบายสี", english: "color" }, { thai: "ร้องเพลง", english: "sing" }, { thai: "เต้น", english: "dance" }, { thai: "กระโดด", english: "jump" }, { thai: "บิน", english: "fly" }, { thai: "ว่ายน้ำ", english: "swim" }, { thai: "เปิด", english: "open" }, { thai: "ปิด", english: "close" }, { thai: "ให้", english: "give" }, { thai: "รับ", english: "receive" }, { thai: "มา", english: "come" }, { thai: "ไป", english: "go" }, { thai: "ดู", english: "look" }, { thai: "ฟัง", english: "listen" }, { thai: "พูด", english: "speak" }, { thai: "บอก", english: "tell" }, { thai: "ถาม", english: "ask" }, { thai: "ตอบ", english: "answer" }, { thai: "หัวเราะ", english: "laugh" }, { thai: "ร้องไห้", english: "cry" }, { thai: "ยิ้ม", english: "smile" }, { thai: "ตื่น", english: "wake up" }, { thai: "อาบน้ำ", english: "take a shower" }, { thai: "แปรงฟัน", english: "brush teeth" }, { thai: "แต่งตัว", english: "get dressed" }, { thai: "ช่วย", english: "help" }, { thai: "สร้าง", english: "build" }, { thai: "ทำ", english: "do/make" }, { thai: "ซื้อ", english: "buy" }, { thai: "ขาย", english: "sell" }, { thai: "นับ", english: "count" }, { thai: "เรียน", english: "learn" }, { thai: "สอน", english: "teach" }, { thai: "รู้", english: "know" }, { thai: "คิด", english: "think" }, { thai: "รู้สึก", english: "feel" }, { thai: "ชอบ", english: "like" }, { thai: "ไม่ชอบ", english: "dislike" }, { thai: "มี", english: "have" }, { thai: "เป็น", english: "am/is/are" }
             ]
         };
-
         const categoryPage = document.getElementById('category-page');
         const lessonPage = document.getElementById('lesson-page');
         const categoryGrid = document.getElementById('category-grid');
@@ -235,12 +202,12 @@
         const playPauseBtn = document.getElementById('play-pause-btn');
         const nextBtn = document.getElementById('next-btn');
         const prevBtn = document.getElementById('prev-btn');
-        const backBtn = document.getElementById('back-btn');
+        const backToCatBtn = document.getElementById('back-to-cat-btn');
+        const stopBtn = document.getElementById('stop-btn');
 
         let currentCategoryVocabs = [];
         let currentIndex = 0;
         let isPlaying = false;
-        let autoPlayInterval;
         let voices = [];
         
         // --- Web Speech API ---
@@ -249,7 +216,7 @@
                 voices = window.speechSynthesis.getVoices();
             };
         }
-        function speakText(text, lang) {
+        function speakText(text, lang, onEndCallback = null) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(text);
@@ -257,6 +224,9 @@
                 const voice = voices.find(v => v.lang.startsWith(lang));
                 if (voice) {
                     utterance.voice = voice;
+                }
+                if (onEndCallback) {
+                    utterance.onend = onEndCallback;
                 }
                 window.speechSynthesis.speak(utterance);
             }
@@ -273,10 +243,23 @@
         
         // --- Game Logic ---
         function createCategoryButtons() {
+            const categoryColors = {
+                "สัตว์": "#ffb6c1",
+                "ร่างกาย": "#87ceeb",
+                "ครอบครัว": "#ffa07a",
+                "อาหารและเครื่องดื่ม": "#98fb98",
+                "เสื้อผ้า": "#ffc0cb",
+                "สถานที่และสิ่งของ": "#bdb76b",
+                "สี": "#d8bfd8",
+                "ตัวเลข": "#f4a460",
+                "อารมณ์และความรู้สึก": "#add8e6",
+                "คำกริยาพื้นฐาน": "#e9967a"
+            };
             for (const category in vocabularyData) {
                 const button = document.createElement('button');
                 button.className = 'category-button';
                 button.textContent = category;
+                button.style.backgroundColor = categoryColors[category] || '#e1bee7';
                 button.addEventListener('click', () => startLesson(category));
                 categoryGrid.appendChild(button);
             }
@@ -297,8 +280,6 @@
                 currentVocab = currentCategoryVocabs[currentIndex];
                 thaiWord.textContent = currentVocab.thai;
                 englishWord.textContent = currentVocab.english;
-                // Speak Thai word automatically when a new word is displayed
-                speakText(currentVocab.thai, 'th-TH');
             } else {
                 thaiWord.textContent = "จบแล้ว!";
                 englishWord.textContent = "Finished!";
@@ -309,6 +290,7 @@
         function updateButtonState() {
             prevBtn.disabled = currentIndex === 0;
             nextBtn.disabled = currentIndex >= currentCategoryVocabs.length - 1;
+            playPauseBtn.textContent = isPlaying ? 'Pause ⏸️' : 'Play ▶️';
         }
 
         function nextVocab() {
@@ -327,44 +309,44 @@
             }
         }
 
+        function playCurrentVocabAuto() {
+            // First speak Thai word
+            speakText(currentVocab.thai, 'th-TH', () => {
+                // After Thai word ends, speak English word
+                speakText(currentVocab.english, 'en-US', () => {
+                    // After English word ends, if playing, move to next vocab
+                    if (isPlaying) {
+                        currentIndex++;
+                        if (currentIndex >= currentCategoryVocabs.length) {
+                            stopAutoPlay();
+                        } else {
+                            displayVocab();
+                            updateButtonState();
+                            playCurrentVocabAuto(); // Loop to next vocab
+                        }
+                    }
+                });
+            });
+        }
+
         function toggleAutoPlay() {
             if (isPlaying) {
-                pauseAutoPlay();
+                stopAutoPlay();
             } else {
-                startAutoPlay();
-            }
-        }
-
-        function startAutoPlay() {
-            if (currentIndex >= currentCategoryVocabs.length - 1) {
-                currentIndex = 0; // Loop back to start if at the end
-            }
-            isPlaying = true;
-            playPauseBtn.textContent = 'Pause ⏸️';
-            
-            displayVocab();
-            updateButtonState();
-            
-            autoPlayInterval = setInterval(() => {
-                currentIndex++;
-                if (currentIndex >= currentCategoryVocabs.length) {
-                    currentIndex = 0; // Loop to beginning
-                }
-                displayVocab();
+                isPlaying = true;
                 updateButtonState();
-            }, 5000); // Change word every 5 seconds
+                if (currentIndex >= currentCategoryVocabs.length) {
+                    currentIndex = 0; // Loop back to start
+                    displayVocab();
+                }
+                playCurrentVocabAuto();
+            }
         }
 
-        function pauseAutoPlay() {
-            isPlaying = false;
-            playPauseBtn.textContent = 'Play ▶️';
-            clearInterval(autoPlayInterval);
-        }
-        
         function stopAutoPlay() {
-            pauseAutoPlay();
-            currentIndex = 0;
-            displayVocab();
+            isPlaying = false;
+            updateButtonState();
+            window.speechSynthesis.cancel();
         }
 
         function goToCategoryPage() {
@@ -377,7 +359,8 @@
         nextBtn.addEventListener('click', nextVocab);
         prevBtn.addEventListener('click', prevVocab);
         playPauseBtn.addEventListener('click', toggleAutoPlay);
-        backBtn.addEventListener('click', goToCategoryPage);
+        stopBtn.addEventListener('click', stopAutoPlay);
+        backToCatBtn.addEventListener('click', goToCategoryPage);
 
         // Initial setup
         createCategoryButtons();
