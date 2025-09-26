@@ -405,8 +405,10 @@
                 currentVocab = currentCategoryVocabs[currentIndex];
                 thaiWord.textContent = currentVocab.thai;
                 englishWord.textContent = currentVocab.english;
-                // Speak the word automatically when displayed
-                speakText(currentVocab.thai, 'th-TH'); 
+                // MODIFICATION: Only speak the word automatically if not in auto-play mode
+                if (!isPlaying) { 
+                    speakText(currentVocab.thai, 'th-TH'); 
+                }
             } else {
                 thaiWord.textContent = "จบแล้ว!";
                 englishWord.textContent = "Finished!";
@@ -449,6 +451,7 @@
                         currentIndex++;
                         displayVocab();
                         updateButtonState();
+                        // Recursive call to play the next word in the sequence
                         playCurrentVocabAuto();
                     }
                 });
