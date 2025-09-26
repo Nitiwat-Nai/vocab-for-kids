@@ -242,6 +242,35 @@
                 { thai: "คนขับรถ", english: "driver" },
                 { thai: "พระภิกษุ", english: "monk" },
                 { thai: "นักบวช", english: "cleric/priest" }
+            ],
+            "กีฬาต่างๆ": [
+                { thai: "ฟุตบอล", english: "football/soccer" },
+                { thai: "บาสเกตบอล", english: "basketball" },
+                { thai: "วอลเลย์บอล", english: "volleyball" },
+                { thai: "เทนนิส", english: "tennis" },
+                { thai: "แบดมินตัน", english: "badminton" },
+                { thai: "ว่ายน้ำ", english: "swimming" },
+                { thai: "วิ่ง", english: "running" },
+                { thai: "ชกมวย", english: "boxing" },
+                { thai: "กอล์ฟ", english: "golf" },
+                { thai: "โบว์ลิ่ง", english: "bowling" },
+                { thai: "ปิงปอง", english: "table tennis" },
+                { thai: "ยิงธนู", english: "archery" },
+                { thai: "ยิมนาสติก", english: "gymnastics" },
+                { thai: "ฮอกกี้", english: "hockey" },
+                { thai: "รักบี้", english: "rugby" },
+                { thai: "จักรยาน", english: "cycling" },
+                { thai: "สเกตบอร์ด", english: "skateboarding" },
+                { thai: "สกี", english: "skiing" },
+                { thai: "โต้คลื่น", english: "surfing" },
+                { thai: "ปีนเขา", english: "climbing" },
+                { thai: "เบสบอล", english: "baseball" },
+                { thai: "คริกเก็ต", english: "cricket" },
+                { thai: "หมากรุก", english: "chess" },
+                { thai: "พายเรือ", english: "rowing" },
+                { thai: "ยกน้ำหนัก", english: "weightlifting" },
+                { thai: "ยูโด", english: "judo" },
+                { thai: "เทควันโด", english: "taekwondo" }
             ]
         };
         const categoryPage = document.getElementById('category-page');
@@ -334,7 +363,8 @@
                 "อารมณ์และความรู้สึก": "😄",
                 "คำกริยาพื้นฐาน": "🏃",
                 "วัน เดือน ฤดูกาล": "📅",
-                "อาชีพ": "🧑‍💼" // ไอคอนสำหรับหมวดอาชีพ
+                "อาชีพ": "🧑‍💼", // ไอคอนสำหรับหมวดอาชีพ
+                "กีฬาต่างๆ": "⚽" // ไอคอนสำหรับหมวดกีฬา
             };
 
             // ปรับสีให้สดใสและอิ่มสีขึ้น
@@ -352,7 +382,8 @@
                 "อารมณ์และความรู้สึก": "#ADFF2F", // Green Yellow
                 "คำกริยาพื้นฐาน": "#00CED1", // Dark Turquoise
                 "วัน เดือน ฤดูกาล": "#FF4500", // Orange Red
-                "อาชีพ": "#B8860B" // Dark Goldenrod
+                "อาชีพ": "#B8860B", // Dark Goldenrod
+                "กีฬาต่างๆ": "#20B2AA" // Light Sea Green
             };
 
             for (const category in vocabularyData) {
@@ -405,7 +436,7 @@
                 currentVocab = currentCategoryVocabs[currentIndex];
                 thaiWord.textContent = currentVocab.thai;
                 englishWord.textContent = currentVocab.english;
-                // MODIFICATION: Only speak the word automatically if not in auto-play mode
+                // แก้ไข: อ่านคำศัพท์อัตโนมัติก็ต่อเมื่อไม่ได้อยู่ในโหมดเล่นอัตโนมัติ
                 if (!isPlaying) { 
                     speakText(currentVocab.thai, 'th-TH'); 
                 }
