@@ -10,54 +10,80 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap');
 
-        /* สีหลักของปุ่มต่างๆ (Kids-friendly colors) */
+        /* สีหลักของปุ่มต่างๆ (Kids-friendly, Brightened Colors) */
         :root {
-            --color-pink: #FF69B4; /* Deep Pink */
-            --color-blue: #4682B4; /* Steel Blue */
-            --color-green: #3CB371; /* Medium Sea Green */
-            --color-orange: #FFA500; /* Orange */
-            --color-purple: #9932CC; /* Dark Orchid */
-            --text-color: #333;
+            --color-pink: #FF4081; /* Brighter Deep Pink */
+            --color-blue: #2196F3; /* Bright Blue */
+            --color-green: #4CAF50; /* Bright Green */
+            --color-orange: #FF9800; /* Bright Orange */
+            --color-purple: #9C27B0; /* Brighter Purple */
+            --text-color: #333; /* Dark text for contrast */
+            --shadow-light: rgba(0, 0, 0, 0.15);
+            --shadow-dark: rgba(0, 0, 0, 0.25);
         }
 
         body {
             font-family: 'Sarabun', sans-serif;
-            /* พื้นหลังไล่สีอ่อน/สดใส */
-            background: linear-gradient(135deg, #FFF5E1, #FFD1DC);
+            /* พื้นหลังไล่สีอ่อน/สดใส (Brighter Gradient) */
+            background: linear-gradient(135deg, #FFFDE7, #FFC1E3); /* Soft Yellow to Bright Pink */
             color: var(--text-color);
             margin: 0;
             padding: 0; 
+            /* ทำให้ body ยึดเต็มหน้าจอในแนวตั้ง */
+            min-height: 100vh; 
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; 
             text-align: center;
         }
 
-        /* The 9:16 Aspect Ratio Frame */
+        /* The 9:16 Aspect Ratio Frame - ปรับให้ครอบคลุมตามแนวตั้ง (Viewport Height) */
         .container {
             /* ลดความโปร่งใสลง 30% (เหลือ 70%) */
-            background-color: rgba(255, 255, 255, 0.7); 
+            background-color: rgba(255, 255, 255, 0.9); /* เพิ่มความทึบแสงเล็กน้อยเพื่อให้มองเห็นชัดเจนขึ้น */
             border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3); /* เพิ่มเงาให้ดูมีมิติ */
             box-sizing: border-box;
             
-            width: 90vmin; 
-            max-width: 450px; 
-            aspect-ratio: 9 / 16; /* 9:16 aspect ratio */
+            /* Logic for 9:16 Aspect Ratio - ให้ยึดจากความสูงเป็นหลัก (vh) และจำกัดความกว้าง (vw) */
+            width: 56.25vh; /* 9/16 ของความสูงของ viewport */
+            max-width: 90vw; /* จำกัดความกว้างไม่ให้เกิน 90% ของ viewport width */
+            aspect-ratio: 9 / 16; 
+            
+            /* หากความสูงของจอเล็กเกินไป ให้กว้างไม่เกิน 450px และสูงตามอัตราส่วน */
+            max-height: 100vh; /* จำกัดความสูงสูงสุด */
             
             display: flex;
             flex-direction: column;
-            padding: 1rem; 
+            padding: 1.5rem; /* เพิ่ม padding เล็กน้อย */
             
             margin: auto;
         }
+        
+        /* Fallback for very wide screens (Optional: keeps the max-width) */
+        @media (min-aspect-ratio: 16/9) {
+             .container {
+                width: 56.25vh; /* 9/16 ของความสูง */
+                max-width: 450px; /* หากความสูงของจอมาก ให้กว้างไม่เกิน 450px */
+            }
+        }
+        
+        /* Fallback for very tall screens (Optional: keeps the max-width) */
+        @media (max-aspect-ratio: 9/16) {
+             .container {
+                width: 90vw;
+                max-width: 450px; /* จำกัดไม่ให้กว้างเกินไป */
+                height: auto; /* ปล่อยให้ความสูงเป็นไปตามเนื้อหา */
+                aspect-ratio: 9 / 16;
+            }
+        }
+
 
         h1 {
             color: var(--color-purple);
-            font-size: 1.8em; 
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
-            margin-bottom: 0.5rem;
+            font-size: 2.2em; /* ปรับขนาดฟอนต์ให้ใหญ่ขึ้น */
+            text-shadow: 2px 2px 5px var(--shadow-light);
+            margin-bottom: 0.75rem;
         }
         
         /* Category Page - หน้าแรก */
@@ -65,37 +91,38 @@
             display: flex; 
             flex-grow: 1; 
             flex-direction: column;
-            justify-content: flex-start; /* จัดชิดด้านบน */
+            justify-content: flex-start; 
             align-items: stretch;
-            padding-top: 1rem; 
+            padding-top: 0.5rem; 
         }
         .category-grid {
-            /* ปรับ Grid เพื่อจัดเรียงปุ่ม */
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); 
-            gap: 0.75rem; 
+            /* ปรับให้ขนาดปุ่มกว้างขึ้นเล็กน้อย */
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
+            gap: 1rem; 
             margin-top: 1.5rem; 
             padding: 0 0.5rem;
-            overflow-y: auto; /* ให้ scroll ได้ถ้าปุ่มเยอะเกิน */
+            overflow-y: auto; 
         }
         .category-button {
-            padding: 0.8rem 0.5rem; 
-            font-size: 0.9em; 
-            border-radius: 15px; 
+            padding: 1rem 0.5rem; 
+            font-size: 1em; /* ปรับขนาดฟอนต์ปุ่ม */
+            border-radius: 20px; /* ทำให้โค้งมนขึ้น */
             border: none;
             color: white;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+            /* ปรับเงาปุ่มให้สดใสขึ้น */
+            box-shadow: 0 5px 0 rgba(0, 0, 0, 0.3); 
             transition: transform 0.1s, box-shadow 0.1s;
         }
         .category-button:active {
-             transform: translateY(2px); 
-             box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2); 
+             transform: translateY(3px); /* กดแล้วจมลงมากขึ้น */
+             box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3); 
         }
         .category-icon {
             display: block; 
-            font-size: 1.2em; 
+            font-size: 1.5em; /* ปรับขนาดไอคอนให้ใหญ่ขึ้น */
             margin-bottom: 0.25rem;
         }
         
@@ -110,30 +137,30 @@
         /* Vocab Card */
         #vocab-card {
             background-color: var(--color-blue);
-            border-radius: 20px; 
-            padding: 2rem 1rem;
+            border-radius: 25px; /* โค้งมนมากขึ้น */
+            padding: 2.5rem 1.5rem;
             flex-grow: 1; 
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            margin-top: 0.5rem;
-            margin-bottom: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* เงาเข้มขึ้น */
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
         }
         #thai-word {
-            font-size: 4em; 
+            font-size: 4.5em; /* ปรับขนาดให้ใหญ่ขึ้นสำหรับคำไทย */
             color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            margin-bottom: 0.5rem;
-            line-height: 1.2;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+            margin-bottom: 0.75rem;
+            line-height: 1.1;
         }
         #english-word {
-            font-size: 2.5em; 
+            font-size: 3em; /* ปรับขนาดให้ใหญ่ขึ้นสำหรับคำอังกฤษ */
             color: #fff;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
             margin-bottom: 0;
-            line-height: 1.2;
+            line-height: 1.1;
         }
         
         /* Control Buttons */
@@ -147,14 +174,14 @@
         }
 
         .all-controls button {
-            padding: 10px 15px; 
-            border-radius: 12px; 
+            padding: 12px 18px; /* เพิ่มขนาดปุ่มเล็กน้อย */
+            border-radius: 15px; 
             border: none; 
-            font-size: 0.9em; 
+            font-size: 1em; /* ปรับขนาดฟอนต์ปุ่มควบคุม */
             cursor: pointer;
             font-weight: bold;
             color: white; 
-            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25); 
+            box-shadow: 0 5px 0 var(--shadow-dark); 
             transition: all 0.2s ease-in-out;
             
             flex: 1 1 auto; 
@@ -163,26 +190,26 @@
         
         /* ปุ่ม Back, Next, Prev ให้มีขนาดใหญ่กว่าปุ่มอื่น */
         #prev-btn, #next-btn, #back-to-cat-btn {
-            flex: 1 1 40%; 
+            flex: 1 1 45%; /* ให้กว้างขึ้นเล็กน้อย */
             max-width: calc(50% - 0.375rem); 
         }
         
-        /* Button Colors */
-        .audio-btn { background-color: var(--color-blue); box-shadow: 0 4px 0 #335d81; }
-        .audio-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #335d81; }
-        .nav-btn { background-color: var(--color-orange); box-shadow: 0 4px 0 #b37300; }
-        .nav-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #b37300; }
-        .play-btn { background-color: var(--color-green); box-shadow: 0 4px 0 #2b8054; }
-        .play-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #2b8054; }
-        .back-btn { background-color: #808080; box-shadow: 0 4px 0 #696969; }
-        .back-btn:active { transform: translateY(2px); box-shadow: 2px 2px 0 #696969; }
+        /* Button Colors (Brightened with darker shadow for pop) */
+        .audio-btn { background-color: var(--color-blue); box-shadow: 0 5px 0 #1565C0; } /* Darker Blue Shadow */
+        .audio-btn:active { transform: translateY(2px); box-shadow: 0 3px 0 #1565C0; }
+        .nav-btn { background-color: var(--color-orange); box-shadow: 0 5px 0 #EF6C00; } /* Darker Orange Shadow */
+        .nav-btn:active { transform: translateY(2px); box-shadow: 0 3px 0 #EF6C00; }
+        .play-btn { background-color: var(--color-green); box-shadow: 0 5px 0 #2E7D32; } /* Darker Green Shadow */
+        .play-btn:active { transform: translateY(2px); box-shadow: 0 3px 0 #2E7D32; }
+        .back-btn { background-color: #757575; box-shadow: 0 5px 0 #424242; } /* Darker Gray Shadow */
+        .back-btn:active { transform: translateY(2px); box-shadow: 0 3px 0 #424242; }
         
         /* ปุ่มที่ Disabled */
         .all-controls button:disabled {
-            opacity: 0.6;
+            opacity: 0.7; /* ลดความทึบแสงเล็กน้อย */
             cursor: not-allowed;
             transform: none;
-            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25); 
+            box-shadow: 0 5px 0 var(--shadow-dark); 
         }
     </style>
 </head>
@@ -217,7 +244,7 @@
     </div>
 
     <script>
-        // ข้อมูลคำศัพท์ 17 หมวดหมู่ (ทุกหมวดถูกจำกัดเหลือ 25 คำศัพท์)
+        // ข้อมูลคำศัพท์ (ไม่แก้ไข)
         const fullVocabularyData = {
             "สัตว์": [
                 { thai: "สุนัข", english: "dog" }, { thai: "แมว", english: "cat" }, { thai: "นก", english: "bird" }, { thai: "ปลา", english: "fish" }, { thai: "ไก่", english: "chicken" }, { thai: "เป็ด", english: "duck" }, { thai: "หมู", english: "pig" }, { thai: "วัว", english: "cow" }, { thai: "ม้า", english: "horse" }, { thai: "แกะ", english: "sheep" }, { thai: "แพะ", english: "goat" }, { thai: "เสือ", english: "tiger" }, { thai: "สิงโต", english: "lion" }, { thai: "ช้าง", english: "elephant" }, { thai: "หมี", english: "bear" }, { thai: "กระต่าย", english: "rabbit" }, { thai: "จิ้งจอก", english: "fox" }, { thai: "หนู", english: "mouse" }, { thai: "งู", english: "snake" }, { thai: "กบ", english: "frog" }, { thai: "เต่า", english: "turtle" }, { thai: "จระเข้", english: "crocodile" }, { thai: "ลิง", english: "monkey" }, { thai: "ยีราฟ", english: "giraffe" }, { thai: "ม้าลาย", english: "zebra" }
@@ -244,7 +271,7 @@
                 { thai: "ผัก", english: "vegetable" }, { thai: "ผลไม้", english: "fruit" }, { thai: "กล้วย", english: "banana" }, { thai: "สับปะรด", english: "pineapple" }, { thai: "ส้ม", english: "orange" }, { thai: "แอปเปิ้ล", english: "apple" }, { thai: "มะม่วง", english: "mango" }, { thai: "ข้าวโพด", english: "corn" }, { thai: "มะเขือเทศ", english: "tomato" }, { thai: "มันฝรั่ง", english: "potato" }, { thai: "แครอท", english: "carrot" }, { thai: "องุ่น", english: "grape" }, { thai: "แตงโม", english: "watermelon" }, { thai: "สตรอว์เบอร์รี", english: "strawberry" }, { thai: "มะพร้าว", english: "coconut" }, { thai: "ลำไย", english: "longan" }, { thai: "ฝรั่ง", english: "guava" }, { thai: "มะนาว", english: "lime" }, { thai: "มะละกอ", english: "papaya" }, { thai: "ทุเรียน", english: "durian" }, { thai: "พริก", english: "chili" }, { thai: "กระเทียม", english: "garlic" }, { thai: "หอมใหญ่", english: "onion" }, { thai: "ผักกาด", english: "lettuce" }, { thai: "กะหล่ำ", english: "cabbage" }
             ],
             "สี": [
-                { thai: "แดง", english: "red" }, { thai: "เหลือง", english: "yellow" }, { thai: "น้ำเงิน", english: "blue" }, { thai: "เขียว", english: "green" }, { thai: "ส้ม", english: "orange" }, { thai: "ม่วง", english: "purple" }, { thai: "ชมพู", english: "pink" }, { thai: "น้ำตาล", english: "brown" }, { thai: "ดำ", english: "black" }, { thai: "ขาว", english: "white" }, { thai: "เทา", english: "gray" }, { thai: "ทอง", english: "gold" }, { thai: "เงิน", english: "silver" }, { thai: "ฟ้า", english: "sky blue" }, { thai: "คราม", english: "indigo" }, { thai: "บานเย็น", english: "magenta" }, { thai: "มะกอก", english: "olive" }, { thai: "ครีม", english: "cream" }, { thai: "กรมท่า", english: "navy" }, { thai: "เขียวอ่อน", english: "light green" }, { thai: "เขียวเข้ม", english: "dark green" }, { thai: "สดใส", english: "bright" }, { thai: "ซีด", english: "pale" }, { thai: "ทึบ", english: "opaque" }, { thai: "ใส", english: "clear" }
+                { thai: "แดง", english: "red" }, { thai: "เหลือง", english: "yellow" }, { thai: "น้ำเงิน", english: "blue" }, { thai: "เขียว", english: "green" }, { thai: "ส้ม", english: "orange" }, { thai: "ม่วง", english: "purple" }, { thai: "ชมพู", english: "pink" }, { thai: "น้ำตาล", english: "brown" }, { thai: "ดำ", english: "black" }, { thai: "ขาว", english: "white" }, { thai: "เทา", english: "gray" }, { thai: "ทอง", english: "gold" }, { thai: "เงิน", english: "silver" }, { thai: "ฟ้า", english: "sky blue" }, { thai: "คราม", english: "indigo" }, { thai: "บานเย็น", english: "magenta" }, { thai: "มะกอก", english: "olive" }, { thai: "ครีม", english: "cream" }, { thai: "กรมท่า", english: "navy" }, { thai: "เขียวอ่อน", english: "light green" }, { thai: "เขียวเข้ม", "english": "dark green" }, { thai: "สดใส", english: "bright" }, { thai: "ซีด", english: "pale" }, { thai: "ทึบ", english: "opaque" }, { thai: "ใส", english: "clear" }
             ],
             "ตัวเลข": [
                 { thai: "หนึ่ง", english: "one" }, { thai: "สอง", english: "two" }, { thai: "สาม", english: "three" }, { thai: "สี่", english: "four" }, { thai: "ห้า", english: "five" }, { thai: "หก", english: "six" }, { thai: "เจ็ด", english: "seven" }, { thai: "แปด", english: "eight" }, { thai: "เก้า", english: "nine" }, { thai: "สิบ", english: "ten" }, { thai: "สิบเอ็ด", english: "eleven" }, { thai: "สิบสอง", english: "twelve" }, { thai: "ยี่สิบ", english: "twenty" }, { thai: "สามสิบ", english: "thirty" }, { thai: "ร้อย", english: "hundred" }, { thai: "พัน", english: "thousand" }, { thai: "หมื่น", english: "ten thousand" }, { thai: "แสน", english: "hundred thousand" }, { thai: "ล้าน", english: "million" }, { thai: "ศูนย์", english: "zero" }, { thai: "คู่", english: "even" }, { thai: "คี่", english: "odd" }, { thai: "น้อยกว่า", english: "less than" }, { thai: "มากกว่า", english: "greater than" }, { thai: "เท่ากับ", english: "equal to" }
@@ -278,7 +305,7 @@
             ]
         };
         
-        // กรองคำศัพท์ให้เหลือ 25 คำแรกตามที่ร้องขอ (ทุกหมวดหมู่)
+        // กรองคำศัพท์ให้เหลือ 25 คำแรกตามที่ร้องขอ (ไม่แก้ไข)
         const vocabularyData = {};
         for (const category in fullVocabularyData) {
             vocabularyData[category] = fullVocabularyData[category].slice(0, 25);
@@ -295,34 +322,35 @@
         const stopBtn = document.getElementById('stop-btn');
         const backToCatBtn = document.getElementById('back-to-cat-btn');
 
-        let currentVocab = null; // ตัวแปร Global สำหรับคำศัพท์ปัจจุบัน
+        let currentVocab = null; 
         let currentCategoryVocabs = [];
         let currentIndex = 0;
         let isPlaying = false;
 
-        // สีและไอคอนสำหรับ 17 หมวดหมู่
+        // สีและไอคอนสำหรับ 17 หมวดหมู่ (ใช้สีเดิมแต่เป็นตัวแปรใหม่ที่ปรับให้สดใสขึ้นใน :root)
         const categoryColors = {
-            "สัตว์": "#FF69B4", 
-            "ร่างกาย": "#4682B4", 
-            "อุปกรณ์การเรียน": "#3CB371", 
-            "ครอบครัว": "#FFA500", 
-            "อาหารและเครื่องดื่ม": "#9932CC", 
-            "เสื้อผ้าและเครื่องแต่งกาย": "#4169E1", 
-            "กีฬา": "#4A148C",
-            "พืชผักผลไม้": "#689F38",
-            "สี": "#008080", 
-            "ตัวเลข": "#8B0000", 
-            "รูปทรง": "#DAA520", 
-            "อารมณ์": "#4B0082", 
-            "สถานที่": "#A0522D", 
-            "ยานพาหนะ": "#6B8E23", 
-            "อาชีพ": "#DC143C", 
-            "กริยา": "#008B8B", 
-            "ธรรมชาติ": "#191970",
-            "เวลา": "#FF8C00", 
-            "ทิศทาง": "#3CB371"
+            "สัตว์": "#FF4081", /* Brighter Pink */
+            "ร่างกาย": "#2196F3", /* Bright Blue */
+            "อุปกรณ์การเรียน": "#4CAF50", /* Bright Green */
+            "ครอบครัว": "#FF9800", /* Bright Orange */
+            "อาหารและเครื่องดื่ม": "#9C27B0", /* Brighter Purple */
+            "เสื้อผ้าและเครื่องแต่งกาย": "#3F51B5", /* Indigo */
+            "กีฬา": "#673AB7", /* Deep Purple */
+            "พืชผักผลไม้": "#8BC34A", /* Light Green */
+            "สี": "#00BCD4", /* Cyan */
+            "ตัวเลข": "#F44336", /* Red */
+            "รูปทรง": "#FFEB3B", /* Yellow */
+            "อารมณ์": "#607D8B", /* Blue Grey */
+            "สถานที่": "#795548", /* Brown */
+            "ยานพาหนะ": "#009688", /* Teal */
+            "อาชีพ": "#E91E63", /* Pink */
+            "กริยา": "#03A9F4", /* Light Blue */
+            "ธรรมชาติ": "#004D40", /* Dark Teal */
+            "เวลา": "#FF5722", /* Deep Orange */
+            "ทิศทาง": "#8BC34A" /* Light Green */
         };
-
+        
+        // ไอคอน (ไม่แก้ไข)
         const categoryIcons = {
             "สัตว์": "🐶",
             "ร่างกาย": "👤",
@@ -354,9 +382,9 @@
             categoryOrder.forEach(category => {
                 const button = document.createElement('button');
                 button.className = 'category-button';
+                // ใช้สีที่กำหนดใน categoryColors
                 button.style.backgroundColor = categoryColors[category];
                 button.innerHTML = `<span class="category-icon">${categoryIcons[category]}</span>${category}`;
-                // ใช้ arrow function เพื่อส่งค่า category เข้าไปใน loadLesson ได้ถูกต้อง
                 button.onclick = () => loadLesson(category); 
                 grid.appendChild(button);
             });
@@ -367,25 +395,22 @@
             currentIndex = 0;
             lessonTitle.textContent = category;
             categoryPage.style.display = 'none';
-            lessonPage.style.display = 'flex'; // แสดงหน้าบทเรียน
+            lessonPage.style.display = 'flex'; 
             displayVocab();
             updateButtonState();
         }
 
         function displayVocab() {
-            // หยุดการอ่านทั้งหมดหากถึงจุดสิ้นสุด
             if (currentIndex >= currentCategoryVocabs.length) {
                 thaiWordEl.textContent = "จบแล้ว!";
                 englishWordEl.textContent = "Finished!";
                 stopAutoPlay();
-                // ปิดปุ่ม Next/Prev หากจบแล้ว
                 nextBtn.disabled = true;
                 prevBtn.disabled = true;
                 return;
             }
             
             if (currentCategoryVocabs.length > 0) {
-                // อัปเดต currentVocab
                 currentVocab = currentCategoryVocabs[currentIndex]; 
                 thaiWordEl.textContent = currentVocab.thai;
                 englishWordEl.textContent = currentVocab.english;
@@ -394,7 +419,6 @@
 
         function nextVocab() {
             stopAutoPlay();
-            // เปิดปุ่ม Next/Prev ก่อน
             nextBtn.disabled = false;
             prevBtn.disabled = false;
 
@@ -403,7 +427,6 @@
                 displayVocab();
                 updateButtonState();
             } else {
-                 // ถ้าถึงคำสุดท้ายแล้ว ให้แสดงข้อความจบ
                  currentIndex = currentCategoryVocabs.length;
                  displayVocab();
             }
@@ -419,11 +442,9 @@
         }
 
         function updateButtonState() {
-            // เปิดใช้งานปุ่มทั้งหมด
             nextBtn.disabled = false;
             prevBtn.disabled = false;
 
-            // ตรวจสอบและปิดปุ่มตามสถานะ
             if (currentIndex === 0) {
                 prevBtn.disabled = true;
             }
@@ -431,10 +452,9 @@
                 nextBtn.disabled = true;
             }
             if (currentIndex >= currentCategoryVocabs.length) {
-                 nextBtn.disabled = true; // หากแสดงข้อความจบแล้ว
+                 nextBtn.disabled = true; 
             }
             
-            // อัปเดตปุ่ม Play/Pause
             if (isPlaying) {
                 playPauseBtn.textContent = 'Pause ⏸️';
             } else {
@@ -442,16 +462,15 @@
             }
         }
         
-        // ** ฟังก์ชันแก้ไขปัญหาการเล่นอัตโนมัติ **
+        // ** ฟังก์ชันแก้ไขปัญหาการเล่นอัตโนมัติ ** (ไม่แก้ไขเนื้อหาสคริปต์)
         function playCurrentVocabAuto() {
             if (!isPlaying) {
                 window.speechSynthesis.cancel();
                 return;
             }
 
-            // ตรวจสอบว่าจบหมวดแล้วหรือไม่
             if (currentIndex >= currentCategoryVocabs.length) {
-                currentIndex = 0; // วนกลับไปคำแรก (ตามปกติของ Autoplay)
+                currentIndex = 0; 
             }
             
             displayVocab();
@@ -459,15 +478,12 @@
 
             const currentItem = currentCategoryVocabs[currentIndex];
             
-            // 1. สร้าง Utterance สำหรับภาษาไทย
             const thaiUtterance = new SpeechSynthesisUtterance(currentItem.thai);
             thaiUtterance.lang = 'th-TH';
 
-            // 2. สร้าง Utterance สำหรับภาษาอังกฤษ
             const englishUtterance = new SpeechSynthesisUtterance(currentItem.english);
             englishUtterance.lang = 'en-US';
 
-            // ตั้งค่าเสียงที่เหมาะสม (ถ้ามี)
             const voices = window.speechSynthesis.getVoices();
             const thaiVoice = voices.find(v => v.lang === 'th-TH' && v.name.includes('Lekha'));
             const englishVoice = voices.find(v => v.lang === 'en-US' && v.name.includes('Samantha'));
@@ -479,10 +495,8 @@
                 englishUtterance.voice = englishVoice;
             }
 
-            // A. เมื่ออ่านภาษาอังกฤษจบ: ให้ไปคำถัดไปและเรียกตัวเองซ้ำ (Continuous Play)
             englishUtterance.addEventListener('end', () => {
                 if (!isPlaying) return;
-                // หน่วงเวลาเล็กน้อย (1 วินาที) ก่อนไปคำถัดไป 
                 setTimeout(() => {
                     currentIndex++;
                     updateButtonState();
@@ -490,15 +504,13 @@
                 }, 1000); 
             });
 
-            // B. เมื่ออ่านภาษาไทยจบ: ให้อ่านภาษาอังกฤษต่อ
             thaiUtterance.addEventListener('end', () => {
                 if (!isPlaying) return;
                 setTimeout(() => {
                     window.speechSynthesis.speak(englishUtterance);
-                }, 500); // หน่วง 0.5 วินาทีก่อนอ่านอังกฤษ
+                }, 500); 
             });
 
-            // ยกเลิกการอ่านที่ค้างอยู่ก่อนเริ่มใหม่ และเริ่มด้วยภาษาไทย
             window.speechSynthesis.cancel();
             window.speechSynthesis.speak(thaiUtterance);
         }
@@ -510,7 +522,6 @@
                 isPlaying = true;
                 updateButtonState();
                 
-                // หากกำลังแสดงคำว่า "จบแล้ว!" ให้เริ่มใหม่ที่คำแรก
                 if (currentIndex >= currentCategoryVocabs.length) {
                     currentIndex = 0; 
                 }
@@ -520,7 +531,6 @@
         }
         
         function speakText(text, lang) {
-            // ฟังก์ชันสำหรับปุ่มฟังเดี่ยว: หยุด AutoPlay ก่อนเสมอ
             stopAutoPlay(); 
             
             const utterance = new SpeechSynthesisUtterance(text);
@@ -547,7 +557,6 @@
 
         function goToCategoryPage() {
             stopAutoPlay();
-            // หากกลับไปหน้าแรก ให้มั่นใจว่าหน้า Lesson ถูกรีเซ็ตสถานะปุ่ม
             nextBtn.disabled = false;
             prevBtn.disabled = false;
             lessonPage.style.display = 'none';
@@ -561,9 +570,8 @@
         stopBtn.addEventListener('click', stopAutoPlay);
         backToCatBtn.addEventListener('click', goToCategoryPage);
 
-        // ** การตั้งค่าเริ่มต้น: รับประกันการสร้างปุ่มทันทีที่หน้าโหลดเสร็จ **
+        // ** การตั้งค่าเริ่มต้น **
         document.addEventListener('DOMContentLoaded', createCategoryButtons);
-        // ในบางกรณีที่ DOMContentLoaded ไม่ทำงาน (เช่น โค้ดอยู่ใน body) ก็ยังสามารถเรียกใช้ได้เลย
         createCategoryButtons();
     </script>
 </body>
