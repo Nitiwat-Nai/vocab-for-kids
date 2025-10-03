@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MK Vocab for Kids - Video Content Ready (9:16)</title>
+    <title>MK Vocab for Kids</title>
     <link rel="manifest" href="/mk-vocab-p1-game/manifest.json">
     <link rel="apple-touch-icon" href="/mk-vocab-p1-game/images/icon-192x192.png">
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap');
 
-        /* สีหลักของปุ่มต่างๆ */
+        /* สีหลักของปุ่มต่างๆ (Kids-friendly colors) */
         :root {
-            --color-pink: #FF69B4; 
-            --color-blue: #4682B4; 
-            --color-green: #3CB371; 
-            --color-orange: #FFA500; 
-            --color-purple: #9932CC; 
+            --color-pink: #FF69B4; /* Deep Pink */
+            --color-blue: #4682B4; /* Steel Blue */
+            --color-green: #3CB371; /* Medium Sea Green */
+            --color-orange: #FFA500; /* Orange */
+            --color-purple: #9932CC; /* Dark Orchid */
             --text-color: #333;
         }
 
         body {
             font-family: 'Sarabun', sans-serif;
-            /* พื้นหลังสีอ่อน */
+            /* พื้นหลังไล่สีอ่อน/สดใส */
             background: linear-gradient(135deg, #FFF5E1, #FFD1DC);
             color: var(--text-color);
             margin: 0;
@@ -34,7 +34,7 @@
             text-align: center;
         }
 
-        /* The 9:16 Aspect Ratio Frame (.video-frame) */
+        /* The 9:16 Aspect Ratio Frame */
         .container {
             /* ลดความโปร่งใสลง 30% (เหลือ 70%) */
             background-color: rgba(255, 255, 255, 0.7); 
@@ -44,7 +44,7 @@
             
             width: 90vmin; 
             max-width: 450px; 
-            aspect-ratio: 9 / 16; 
+            aspect-ratio: 9 / 16; /* 9:16 aspect ratio */
             
             display: flex;
             flex-direction: column;
@@ -60,21 +60,23 @@
             margin-bottom: 0.5rem;
         }
         
-        /* Category Page - หน้าแรก: ทำให้แสดงผลเป็น flex/block เพื่อให้ Grid ทำงาน */
+        /* Category Page - หน้าแรก */
         #category-page { 
-            display: flex; /* กำหนดให้แสดงผล */
+            display: flex; 
             flex-grow: 1; 
             flex-direction: column;
-            justify-content: center; 
-            align-items: stretch; /* ให้เต็มความกว้าง */
+            justify-content: flex-start; /* จัดชิดด้านบน */
+            align-items: stretch;
+            padding-top: 1rem; 
         }
         .category-grid {
-            /* ปรับ Grid ให้รองรับ 17 ปุ่ม */
+            /* ปรับ Grid เพื่อจัดเรียงปุ่ม */
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); 
             gap: 0.75rem; 
             margin-top: 1.5rem; 
-            padding: 0 0.5rem; /* เพิ่ม padding ด้านข้างเล็กน้อย */
+            padding: 0 0.5rem;
+            overflow-y: auto; /* ให้ scroll ได้ถ้าปุ่มเยอะเกิน */
         }
         .category-button {
             padding: 0.8rem 0.5rem; 
@@ -83,8 +85,13 @@
             border: none;
             color: white;
             font-weight: bold;
+            cursor: pointer;
             box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
             transition: transform 0.1s, box-shadow 0.1s;
+        }
+        .category-button:active {
+             transform: translateY(2px); 
+             box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2); 
         }
         .category-icon {
             display: block; 
@@ -94,7 +101,7 @@
         
         /* Lesson Page */
         #lesson-page { 
-            display: none; /* ซ่อนไว้ตั้งแต่แรก */
+            display: none; 
             flex-grow: 1; 
             flex-direction: column;
             justify-content: space-between; 
@@ -119,15 +126,17 @@
             color: white;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             margin-bottom: 0.5rem;
+            line-height: 1.2;
         }
         #english-word {
             font-size: 2.5em; 
             color: #fff;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
             margin-bottom: 0;
+            line-height: 1.2;
         }
         
-        /* Button Styles */
+        /* Control Buttons */
         .all-controls {
             display: flex;
             flex-wrap: wrap; 
@@ -152,6 +161,7 @@
             min-width: 0; 
         }
         
+        /* ปุ่ม Back, Next, Prev ให้มีขนาดใหญ่กว่าปุ่มอื่น */
         #prev-btn, #next-btn, #back-to-cat-btn {
             flex: 1 1 40%; 
             max-width: calc(50% - 0.375rem); 
@@ -166,6 +176,14 @@
         .play-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #2b8054; }
         .back-btn { background-color: #808080; box-shadow: 0 4px 0 #696969; }
         .back-btn:active { transform: translateY(2px); box-shadow: 2px 2px 0 #696969; }
+        
+        /* ปุ่มที่ Disabled */
+        .all-controls button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25); 
+        }
     </style>
 </head>
 <body>
@@ -277,11 +295,10 @@
         const stopBtn = document.getElementById('stop-btn');
         const backToCatBtn = document.getElementById('back-to-cat-btn');
 
-        let currentVocab = null; // เพิ่มตัวแปร global เพื่อให้ปุ่มฟังทำงานได้
+        let currentVocab = null; // ตัวแปร Global สำหรับคำศัพท์ปัจจุบัน
         let currentCategoryVocabs = [];
         let currentIndex = 0;
         let isPlaying = false;
-        let autoPlayInterval = null;
 
         // สีและไอคอนสำหรับ 17 หมวดหมู่
         const categoryColors = {
@@ -302,8 +319,8 @@
             "อาชีพ": "#DC143C", 
             "กริยา": "#008B8B", 
             "ธรรมชาติ": "#191970",
-            "เวลา": "#FF8C00", // Dark Orange
-            "ทิศทาง": "#3CB371" // Medium Sea Green
+            "เวลา": "#FF8C00", 
+            "ทิศทาง": "#3CB371"
         };
 
         const categoryIcons = {
@@ -330,7 +347,6 @@
 
         function createCategoryButtons() {
             const grid = document.getElementById('category-grid');
-            // ล้างปุ่มเดิม (ถ้ามี)
             grid.innerHTML = '';
             
             const categoryOrder = Object.keys(vocabularyData);
@@ -338,19 +354,12 @@
             categoryOrder.forEach(category => {
                 const button = document.createElement('button');
                 button.className = 'category-button';
-                // ใช้สีจาก Category Colors
                 button.style.backgroundColor = categoryColors[category];
                 button.innerHTML = `<span class="category-icon">${categoryIcons[category]}</span>${category}`;
-                button.onclick = () => loadLesson(category);
+                // ใช้ arrow function เพื่อส่งค่า category เข้าไปใน loadLesson ได้ถูกต้อง
+                button.onclick = () => loadLesson(category); 
                 grid.appendChild(button);
             });
-            
-            // เพิ่มการตรวจสอบว่าปุ่มถูกสร้างหรือไม่ (Optional Debugging)
-            if (grid.children.length === 0) {
-                 console.error("Error: No category buttons were created. Check vocabularyData.");
-            } else {
-                 console.log(`Success: Created ${grid.children.length} category buttons.`);
-            }
         }
 
         function loadLesson(category) {
@@ -358,12 +367,23 @@
             currentIndex = 0;
             lessonTitle.textContent = category;
             categoryPage.style.display = 'none';
-            lessonPage.style.display = 'flex'; 
+            lessonPage.style.display = 'flex'; // แสดงหน้าบทเรียน
             displayVocab();
             updateButtonState();
         }
 
         function displayVocab() {
+            // หยุดการอ่านทั้งหมดหากถึงจุดสิ้นสุด
+            if (currentIndex >= currentCategoryVocabs.length) {
+                thaiWordEl.textContent = "จบแล้ว!";
+                englishWordEl.textContent = "Finished!";
+                stopAutoPlay();
+                // ปิดปุ่ม Next/Prev หากจบแล้ว
+                nextBtn.disabled = true;
+                prevBtn.disabled = true;
+                return;
+            }
+            
             if (currentCategoryVocabs.length > 0) {
                 // อัปเดต currentVocab
                 currentVocab = currentCategoryVocabs[currentIndex]; 
@@ -373,14 +393,24 @@
         }
 
         function nextVocab() {
+            stopAutoPlay();
+            // เปิดปุ่ม Next/Prev ก่อน
+            nextBtn.disabled = false;
+            prevBtn.disabled = false;
+
             if (currentIndex < currentCategoryVocabs.length - 1) {
                 currentIndex++;
                 displayVocab();
                 updateButtonState();
+            } else {
+                 // ถ้าถึงคำสุดท้ายแล้ว ให้แสดงข้อความจบ
+                 currentIndex = currentCategoryVocabs.length;
+                 displayVocab();
             }
         }
 
         function prevVocab() {
+            stopAutoPlay();
             if (currentIndex > 0) {
                 currentIndex--;
                 displayVocab();
@@ -389,24 +419,114 @@
         }
 
         function updateButtonState() {
-            // ปิดปุ่ม Next/Prev หากถึงจุดเริ่มต้น/จุดสิ้นสุด
-            prevBtn.disabled = currentIndex === 0;
-            nextBtn.disabled = currentIndex === currentCategoryVocabs.length - 1;
+            // เปิดใช้งานปุ่มทั้งหมด
+            nextBtn.disabled = false;
+            prevBtn.disabled = false;
+
+            // ตรวจสอบและปิดปุ่มตามสถานะ
+            if (currentIndex === 0) {
+                prevBtn.disabled = true;
+            }
+            if (currentIndex === currentCategoryVocabs.length - 1) {
+                nextBtn.disabled = true;
+            }
+            if (currentIndex >= currentCategoryVocabs.length) {
+                 nextBtn.disabled = true; // หากแสดงข้อความจบแล้ว
+            }
             
+            // อัปเดตปุ่ม Play/Pause
             if (isPlaying) {
                 playPauseBtn.textContent = 'Pause ⏸️';
             } else {
                 playPauseBtn.textContent = 'Play ▶️';
             }
         }
+        
+        // ** ฟังก์ชันแก้ไขปัญหาการเล่นอัตโนมัติ **
+        function playCurrentVocabAuto() {
+            if (!isPlaying) {
+                window.speechSynthesis.cancel();
+                return;
+            }
 
+            // ตรวจสอบว่าจบหมวดแล้วหรือไม่
+            if (currentIndex >= currentCategoryVocabs.length) {
+                currentIndex = 0; // วนกลับไปคำแรก (ตามปกติของ Autoplay)
+            }
+            
+            displayVocab();
+            updateButtonState();
+
+            const currentItem = currentCategoryVocabs[currentIndex];
+            
+            // 1. สร้าง Utterance สำหรับภาษาไทย
+            const thaiUtterance = new SpeechSynthesisUtterance(currentItem.thai);
+            thaiUtterance.lang = 'th-TH';
+
+            // 2. สร้าง Utterance สำหรับภาษาอังกฤษ
+            const englishUtterance = new SpeechSynthesisUtterance(currentItem.english);
+            englishUtterance.lang = 'en-US';
+
+            // ตั้งค่าเสียงที่เหมาะสม (ถ้ามี)
+            const voices = window.speechSynthesis.getVoices();
+            const thaiVoice = voices.find(v => v.lang === 'th-TH' && v.name.includes('Lekha'));
+            const englishVoice = voices.find(v => v.lang === 'en-US' && v.name.includes('Samantha'));
+            
+            if (thaiVoice) {
+                thaiUtterance.voice = thaiVoice;
+            }
+            if (englishVoice) {
+                englishUtterance.voice = englishVoice;
+            }
+
+            // A. เมื่ออ่านภาษาอังกฤษจบ: ให้ไปคำถัดไปและเรียกตัวเองซ้ำ (Continuous Play)
+            englishUtterance.addEventListener('end', () => {
+                if (!isPlaying) return;
+                // หน่วงเวลาเล็กน้อย (1 วินาที) ก่อนไปคำถัดไป 
+                setTimeout(() => {
+                    currentIndex++;
+                    updateButtonState();
+                    playCurrentVocabAuto(); 
+                }, 1000); 
+            });
+
+            // B. เมื่ออ่านภาษาไทยจบ: ให้อ่านภาษาอังกฤษต่อ
+            thaiUtterance.addEventListener('end', () => {
+                if (!isPlaying) return;
+                setTimeout(() => {
+                    window.speechSynthesis.speak(englishUtterance);
+                }, 500); // หน่วง 0.5 วินาทีก่อนอ่านอังกฤษ
+            });
+
+            // ยกเลิกการอ่านที่ค้างอยู่ก่อนเริ่มใหม่ และเริ่มด้วยภาษาไทย
+            window.speechSynthesis.cancel();
+            window.speechSynthesis.speak(thaiUtterance);
+        }
+        
+        function toggleAutoPlay() {
+            if (isPlaying) {
+                stopAutoPlay();
+            } else {
+                isPlaying = true;
+                updateButtonState();
+                
+                // หากกำลังแสดงคำว่า "จบแล้ว!" ให้เริ่มใหม่ที่คำแรก
+                if (currentIndex >= currentCategoryVocabs.length) {
+                    currentIndex = 0; 
+                }
+                
+                playCurrentVocabAuto();
+            }
+        }
+        
         function speakText(text, lang) {
+            // ฟังก์ชันสำหรับปุ่มฟังเดี่ยว: หยุด AutoPlay ก่อนเสมอ
             stopAutoPlay(); 
+            
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = lang;
-            // ตั้งค่าเสียงที่เหมาะสม (ถ้ามี)
+            
             const voice = window.speechSynthesis.getVoices().find(v => {
-                // พยายามหาเสียงไทย/อังกฤษ ที่ดูเป็นธรรมชาติที่สุด
                 if (lang === 'th-TH') return v.lang.includes('th') && v.name.includes('Lekha');
                 if (lang === 'en-US') return v.lang.includes('en') && v.name.includes('Samantha');
                 return v.lang.includes(lang.substring(0, 2));
@@ -414,64 +534,9 @@
             if (voice) {
                 utterance.voice = voice;
             }
+            
             window.speechSynthesis.cancel(); 
             window.speechSynthesis.speak(utterance);
-        }
-
-        function playCurrentVocabAuto() {
-            if (!isPlaying) return;
-            if (!currentVocab) return stopAutoPlay();
-
-            // ใช้ currentVocab ที่อัปเดตแล้ว
-            const currentItem = currentCategoryVocabs[currentIndex];
-            
-            const thaiUtterance = new SpeechSynthesisUtterance(currentItem.thai);
-            thaiUtterance.lang = 'th-TH';
-
-            const englishUtterance = new SpeechSynthesisUtterance(currentItem.english);
-            englishUtterance.lang = 'en-US';
-
-            // ตั้งค่าเสียง (ถ้ามี)
-            speakText(currentItem.thai, 'th-TH');
-
-            thaiUtterance.addEventListener('end', () => {
-                if (isPlaying) {
-                    setTimeout(() => {
-                        speakText(currentItem.english, 'en-US');
-                    }, 500); // 500 มิลลิวินาที (0.5 วินาที)
-                }
-            });
-
-            englishUtterance.addEventListener('end', () => {
-                if (isPlaying) {
-                    currentIndex++;
-                    if (currentIndex >= currentCategoryVocabs.length) {
-                        currentIndex = 0; // เล่นซ้ำจากคำแรก
-                    }
-                    displayVocab();
-                    updateButtonState();
-                    // เรียกตัวเองซ้ำเพื่อเล่นคำถัดไป
-                    playCurrentVocabAuto();
-                }
-            });
-            
-            // เริ่มต้นการอ่าน
-            window.speechSynthesis.cancel();
-            window.speechSynthesis.speak(thaiUtterance);
-        }
-
-        function toggleAutoPlay() {
-            if (isPlaying) {
-                stopAutoPlay();
-            } else {
-                isPlaying = true;
-                updateButtonState();
-                if (currentIndex >= currentCategoryVocabs.length) {
-                    currentIndex = 0; 
-                    displayVocab();
-                }
-                playCurrentVocabAuto();
-            }
         }
 
         function stopAutoPlay() {
@@ -482,8 +547,11 @@
 
         function goToCategoryPage() {
             stopAutoPlay();
+            // หากกลับไปหน้าแรก ให้มั่นใจว่าหน้า Lesson ถูกรีเซ็ตสถานะปุ่ม
+            nextBtn.disabled = false;
+            prevBtn.disabled = false;
             lessonPage.style.display = 'none';
-            categoryPage.style.display = 'flex'; // แก้เป็น flex เพื่อให้จัดตรงกลางได้ดี
+            categoryPage.style.display = 'flex'; 
         }
 
         // Event Listeners
@@ -493,10 +561,9 @@
         stopBtn.addEventListener('click', stopAutoPlay);
         backToCatBtn.addEventListener('click', goToCategoryPage);
 
-        // **จุดสำคัญที่รับประกันการสร้างปุ่มเมื่อหน้าโหลดเสร็จ**
-        // ใช้ DOMContentLoaded เพื่อให้แน่ใจว่าสร้างปุ่มหลังจาก HTML ถูกโหลด
+        // ** การตั้งค่าเริ่มต้น: รับประกันการสร้างปุ่มทันทีที่หน้าโหลดเสร็จ **
         document.addEventListener('DOMContentLoaded', createCategoryButtons);
-        // หากไม่มี DOMContentLoaded (เช่น ในบางสภาพแวดล้อมที่โค้ดอยู่ในส่วนท้าย body) ให้เรียกใช้ทันที
+        // ในบางกรณีที่ DOMContentLoaded ไม่ทำงาน (เช่น โค้ดอยู่ใน body) ก็ยังสามารถเรียกใช้ได้เลย
         createCategoryButtons();
     </script>
 </body>
