@@ -10,123 +10,108 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap');
 
-        /* สีหลักของปุ่มต่างๆ (Kids-friendly, Brightened Colors) */
+        /* โทนสีใหม่: อ้างอิงจากภาพตัวเลข (Pastel/Cute) */
         :root {
-            --color-pink: #FF4081; /* Brighter Deep Pink */
-            --color-blue: #2196F3; /* Bright Blue */
-            --color-green: #4CAF50; /* Bright Green */
-            --color-orange: #FF9800; /* Bright Orange */
-            --color-purple: #9C27B0; /* Brighter Purple */
-            --text-color: #333; /* Dark text for contrast */
-            --shadow-light: rgba(0, 0, 0, 0.15);
-            --shadow-dark: rgba(0, 0, 0, 0.25);
+            --color-pastel-orange: #FFC06E; 
+            --color-pastel-yellow: #FFFF8F; 
+            --color-pastel-green: #A3E7B2; 
+            --color-pastel-blue: #97C0E7; 
+            --color-pastel-purple: #C7A7E7; 
+            --color-pastel-pink: #FFB3D9; 
+            --color-text-dark: #4B0082; 
+            --color-background-light: #FFF5FF;
         }
 
         body {
             font-family: 'Sarabun', sans-serif;
-            /* พื้นหลังไล่สีอ่อน/สดใส (Brighter Gradient) */
-            background: linear-gradient(135deg, #FFFDE7, #FFC1E3); /* Soft Yellow to Bright Pink */
-            color: var(--text-color);
+            /* พื้นหลังไล่สีอ่อนๆ จากภาพตัวเลข (ส้ม/ชมพู/ขาว) */
+            background: linear-gradient(135deg, #FFEFD5, #FFD1E0); 
+            color: var(--color-text-dark);
             margin: 0;
             padding: 0; 
-            /* ทำให้ body ยึดเต็มหน้าจอในแนวตั้ง */
-            min-height: 100vh; 
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh; 
             text-align: center;
         }
 
-        /* The 9:16 Aspect Ratio Frame - ปรับให้ครอบคลุมตามแนวตั้ง (Viewport Height) */
+        /* ------------------------------------------- */
+        /* Core Layout: 9:16 Aspect Ratio Container */
+        /* ------------------------------------------- */
         .container {
-            /* ลดความโปร่งใสลง 30% (เหลือ 70%) */
-            background-color: rgba(255, 255, 255, 0.9); /* เพิ่มความทึบแสงเล็กน้อยเพื่อให้มองเห็นชัดเจนขึ้น */
-            border-radius: 20px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3); /* เพิ่มเงาให้ดูมีมิติ */
+            background-color: rgba(255, 255, 255, 0.9); /* เพิ่มความโปร่งแสงเล็กน้อย */
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
             box-sizing: border-box;
             
-            /* Logic for 9:16 Aspect Ratio - ให้ยึดจากความสูงเป็นหลัก (vh) และจำกัดความกว้าง (vw) */
-            width: 56.25vh; /* 9/16 ของความสูงของ viewport */
-            max-width: 90vw; /* จำกัดความกว้างไม่ให้เกิน 90% ของ viewport width */
+            /* กำหนดขนาดให้เป็นอัตราส่วน 9:16 */
+            width: 90vmin; 
+            max-width: 450px; 
             aspect-ratio: 9 / 16; 
-            
-            /* หากความสูงของจอเล็กเกินไป ให้กว้างไม่เกิน 450px และสูงตามอัตราส่วน */
-            max-height: 100vh; /* จำกัดความสูงสูงสุด */
             
             display: flex;
             flex-direction: column;
-            padding: 1.5rem; /* เพิ่ม padding เล็กน้อย */
-            
-            margin: auto;
+            padding: 1.5rem; 
+            overflow: hidden; 
         }
         
-        /* Fallback for very wide screens (Optional: keeps the max-width) */
-        @media (min-aspect-ratio: 16/9) {
-             .container {
-                width: 56.25vh; /* 9/16 ของความสูง */
-                max-width: 450px; /* หากความสูงของจอมาก ให้กว้างไม่เกิน 450px */
-            }
-        }
-        
-        /* Fallback for very tall screens (Optional: keeps the max-width) */
-        @media (max-aspect-ratio: 9/16) {
-             .container {
-                width: 90vw;
-                max-width: 450px; /* จำกัดไม่ให้กว้างเกินไป */
-                height: auto; /* ปล่อยให้ความสูงเป็นไปตามเนื้อหา */
-                aspect-ratio: 9 / 16;
-            }
-        }
-
-
         h1 {
-            color: var(--color-purple);
-            font-size: 2.2em; /* ปรับขนาดฟอนต์ให้ใหญ่ขึ้น */
-            text-shadow: 2px 2px 5px var(--shadow-light);
-            margin-bottom: 0.75rem;
+            color: var(--color-text-dark);
+            font-size: 1.8em; 
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 0.5rem;
+            flex-shrink: 0; 
         }
         
-        /* Category Page - หน้าแรก */
+        /* ------------------------------------------- */
+        /* Category Page - หน้าหลัก (Category Selection) */
+        /* ------------------------------------------- */
         #category-page { 
-            display: flex; 
+            display: block; 
             flex-grow: 1; 
+            display: flex; 
             flex-direction: column;
-            justify-content: flex-start; 
-            align-items: stretch;
-            padding-top: 0.5rem; 
         }
         .category-grid {
+            /* ปรับให้เป็น 3 คอลัมน์สำหรับมือถือ */
             display: grid;
-            /* ปรับให้ขนาดปุ่มกว้างขึ้นเล็กน้อย */
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
-            gap: 1rem; 
-            margin-top: 1.5rem; 
-            padding: 0 0.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); 
+            gap: 0.75rem; 
+            margin-top: 1rem; 
+            padding-right: 2px; 
             overflow-y: auto; 
+            flex-grow: 1;
         }
         .category-button {
-            padding: 1rem 0.5rem; 
-            font-size: 1em; /* ปรับขนาดฟอนต์ปุ่ม */
-            border-radius: 20px; /* ทำให้โค้งมนขึ้น */
+            padding: 0.8rem 0.5rem; 
+            font-size: 0.9em; 
+            border-radius: 15px; 
             border: none;
-            color: white;
+            color: var(--color-text-dark); 
+            background-color: #fff; /* จะถูกกำหนดใน JS */
             font-weight: bold;
             cursor: pointer;
-            /* ปรับเงาปุ่มให้สดใสขึ้น */
-            box-shadow: 0 5px 0 rgba(0, 0, 0, 0.3); 
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
             transition: transform 0.1s, box-shadow 0.1s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .category-button:active {
-             transform: translateY(3px); /* กดแล้วจมลงมากขึ้น */
-             box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3); 
+             transform: translateY(2px); 
+             box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2); 
         }
         .category-icon {
             display: block; 
-            font-size: 1.5em; /* ปรับขนาดไอคอนให้ใหญ่ขึ้น */
+            font-size: 1.5em; 
             margin-bottom: 0.25rem;
         }
-        
+
+        /* ------------------------------------------- */
         /* Lesson Page */
+        /* ------------------------------------------- */
         #lesson-page { 
             display: none; 
             flex-grow: 1; 
@@ -136,80 +121,80 @@
         
         /* Vocab Card */
         #vocab-card {
-            background-color: var(--color-blue);
-            border-radius: 25px; /* โค้งมนมากขึ้น */
-            padding: 2.5rem 1.5rem;
+            background-color: var(--color-pastel-blue); 
+            border-radius: 20px; 
+            padding: 2rem 1rem;
             flex-grow: 1; 
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* เงาเข้มขึ้น */
-            margin-top: 1rem;
-            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 0.5rem;
+            margin-bottom: 0.75rem;
         }
         #thai-word {
-            font-size: 4.5em; /* ปรับขนาดให้ใหญ่ขึ้นสำหรับคำไทย */
+            font-size: 3.5em; 
             color: white;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
-            margin-bottom: 0.75rem;
-            line-height: 1.1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
         }
         #english-word {
-            font-size: 3em; /* ปรับขนาดให้ใหญ่ขึ้นสำหรับคำอังกฤษ */
+            font-size: 2em; 
             color: #fff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
             margin-bottom: 0;
-            line-height: 1.1;
+            line-height: 1.2;
         }
         
         /* Control Buttons */
-        .all-controls {
+        .control-group {
             display: flex;
-            flex-wrap: wrap; 
+            flex-wrap: wrap;
             justify-content: center;
-            gap: 0.75rem; 
-            margin-top: 0.5rem;
+            gap: 0.6rem;
             margin-bottom: 0.5rem;
+            flex-shrink: 0;
         }
 
-        .all-controls button {
-            padding: 12px 18px; /* เพิ่มขนาดปุ่มเล็กน้อย */
-            border-radius: 15px; 
+        .control-group button {
+            padding: 8px 15px; 
+            border-radius: 12px; 
             border: none; 
-            font-size: 1em; /* ปรับขนาดฟอนต์ปุ่มควบคุม */
+            font-size: 0.85em; 
             cursor: pointer;
             font-weight: bold;
             color: white; 
-            box-shadow: 0 5px 0 var(--shadow-dark); 
+            box-shadow: 0 3px 0 rgba(0, 0, 0, 0.25); 
             transition: all 0.2s ease-in-out;
             
             flex: 1 1 auto; 
             min-width: 0; 
         }
         
-        /* ปุ่ม Back, Next, Prev ให้มีขนาดใหญ่กว่าปุ่มอื่น */
+        /* ปรับขนาดปุ่มหลัก Next/Prev/Back */
         #prev-btn, #next-btn, #back-to-cat-btn {
-            flex: 1 1 45%; /* ให้กว้างขึ้นเล็กน้อย */
-            max-width: calc(50% - 0.375rem); 
+            flex: 1 1 40%; 
+            max-width: calc(50% - 0.3rem); 
         }
         
-        /* Button Colors (Brightened with darker shadow for pop) */
-        .audio-btn { background-color: var(--color-blue); box-shadow: 0 5px 0 #1565C0; } /* Darker Blue Shadow */
-        .audio-btn:active { transform: translateY(2px); box-shadow: 0 3px 0 #1565C0; }
-        .nav-btn { background-color: var(--color-orange); box-shadow: 0 5px 0 #EF6C00; } /* Darker Orange Shadow */
-        .nav-btn:active { transform: translateY(2px); box-shadow: 0 3px 0 #EF6C00; }
-        .play-btn { background-color: var(--color-green); box-shadow: 0 5px 0 #2E7D32; } /* Darker Green Shadow */
-        .play-btn:active { transform: translateY(2px); box-shadow: 0 3px 0 #2E7D32; }
-        .back-btn { background-color: #757575; box-shadow: 0 5px 0 #424242; } /* Darker Gray Shadow */
-        .back-btn:active { transform: translateY(2px); box-shadow: 0 3px 0 #424242; }
+        /* Button Colors (ใช้โทนสีใหม่) */
+        .audio-btn { background-color: var(--color-pastel-green); box-shadow: 0 3px 0 #89b391; }
+        .audio-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #89b391; }
+        .nav-btn { background-color: var(--color-pastel-orange); box-shadow: 0 3px 0 #d39f5f; }
+        .nav-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #d39f5f; }
+        .play-btn { background-color: var(--color-pastel-pink); box-shadow: 0 3px 0 #d396b7; }
+        .play-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #d396b7; }
+        .back-btn { background-color: var(--color-pastel-purple); box-shadow: 0 3px 0 #a382c7; }
+        .back-btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #a382c7; }
         
         /* ปุ่มที่ Disabled */
-        .all-controls button:disabled {
-            opacity: 0.7; /* ลดความทึบแสงเล็กน้อย */
+        .control-group button:disabled {
+            opacity: 0.6;
             cursor: not-allowed;
             transform: none;
-            box-shadow: 0 5px 0 var(--shadow-dark); 
+            box-shadow: 0 3px 0 rgba(0, 0, 0, 0.25); 
         }
     </style>
 </head>
@@ -218,8 +203,7 @@
     <div class="container">
         <div id="category-page">
             <h1>เลือกหมวดหมู่</h1>
-            <div id="category-grid" class="category-grid">
-                </div>
+            <div id="category-grid" class="category-grid"></div>
         </div>
 
         <div id="lesson-page">
@@ -230,48 +214,77 @@
                 <span id="english-word" class="word"></span>
             </div>
             
-            <div class="all-controls">
+            <div class="control-group">
                 <button id="prev-btn" class="nav-btn">◀️ ย้อนกลับ</button>
                 <button id="next-btn" class="nav-btn">ถัดไป ▶️</button>
-                <button onclick="speakText(currentVocab.thai, 'th-TH')" class="audio-btn">ฟัง (ไทย) 🔊</button>
-                <button onclick="speakText(currentVocab.english, 'en-US')" class="audio-btn">Listen (EN) 🔊</button>
+            </div>
+            <div class="control-group">
+                <button onclick="currentVocab && speakText(currentVocab.thai, 'th-TH')" class="audio-btn">ฟัง (ไทย) 🔊</button>
+                <button onclick="currentVocab && speakText(currentVocab.english, 'en-US')" class="audio-btn">Listen (EN) 🔊</button>
+            </div>
+            <div class="control-group">
                 <button id="play-pause-btn" class="play-btn">Play ▶️</button>
                 <button id="stop-btn" class="back-btn">Stop ⏹️</button>
                 <button id="back-to-cat-btn" class="back-btn">Back to Categories 🏠</button>
             </div>
-            
         </div>
     </div>
 
     <script>
-        // ข้อมูลคำศัพท์ (เพิ่มหมวดหมู่ "เครื่องหมายพิเศษ")
-        const fullVocabularyData = {
+        // ข้อมูลคำศัพท์ 17 หมวดหมู่ (ไม่มีการตัดคำศัพท์ออก)
+        const vocabularyData = {
             "สัตว์": [
-                { thai: "สุนัข", english: "dog" }, { thai: "แมว", english: "cat" }, { thai: "นก", english: "bird" }, { thai: "ปลา", english: "fish" }, { thai: "ไก่", english: "chicken" }, { thai: "เป็ด", english: "duck" }, { thai: "หมู", english: "pig" }, { thai: "วัว", english: "cow" }, { thai: "ม้า", english: "horse" }, { thai: "แกะ", english: "sheep" }, { thai: "แพะ", english: "goat" }, { thai: "เสือ", english: "tiger" }, { thai: "สิงโต", english: "lion" }, { thai: "ช้าง", english: "elephant" }, { thai: "หมี", english: "bear" }, { thai: "กระต่าย", english: "rabbit" }, { thai: "จิ้งจอก", english: "fox" }, { thai: "หนู", english: "mouse" }, { thai: "งู", english: "snake" }, { thai: "กบ", english: "frog" }, { thai: "เต่า", english: "turtle" }, { thai: "จระเข้", english: "crocodile" }, { thai: "ลิง", english: "monkey" }, { thai: "ยีราฟ", english: "giraffe" }, { thai: "ม้าลาย", english: "zebra" }
+                { thai: "สุนัข", english: "dog" }, { thai: "แมว", english: "cat" }, { thai: "นก", english: "bird" }, { thai: "ปลา", english: "fish" }, { thai: "ไก่", english: "chicken" }, { thai: "เป็ด", english: "duck" }, { thai: "หมู", english: "pig" }, { thai: "วัว", english: "cow" }, { thai: "ม้า", english: "horse" }, { thai: "แกะ", english: "sheep" }, { thai: "แพะ", english: "goat" }, { thai: "เสือ", english: "tiger" }, { thai: "สิงโต", english: "lion" }, { thai: "ช้าง", english: "elephant" }, { thai: "หมี", english: "bear" }, { thai: "กระต่าย", english: "rabbit" }, { thai: "จิ้งจอก", english: "fox" }, { thai: "หนู", english: "mouse" }, { thai: "งู", english: "snake" }, { thai: "กบ", english: "frog" }, { thai: "เต่า", english: "turtle" }, { thai: "จระเข้", english: "crocodile" }, { thai: "ลิง", english: "monkey" }, { thai: "ยีราฟ", english: "giraffe" }, { thai: "ม้าลาย", english: "zebra" }, { thai: "ผีเสื้อ", english: "butterfly" }, { thai: "แมลงปอ", english: "dragonfly" }, { thai: "มด", english: "ant" }, { thai: "ยุง", english: "mosquito" }, { thai: "แมลงวัน", english: "fly" }, { thai: "ผึ้ง", english: "bee" }, { thai: "หนอน", english: "worm" }, { thai: "หอยทาก", english: "snail" }, { thai: "นกฮูก", english: "owl" }, { thai: "เหยี่ยว", english: "hawk" }, { thai: "นกกระจอกเทศ", english: "ostrich" }, { thai: "เพนกวิน", english: "penguin" }, { thai: "ฉลาม", english: "shark" }, { thai: "วาฬ", english: "whale" }, { thai: "โลมา", english: "dolphin" }, { thai: "หอย", english: "shell" }, { thai: "ปู", english: "crab" }, { thai: "กุ้ง", english: "shrimp" }, { thai: "หมีโคอาลา", english: "koala" }, { thai: "แพนด้า", english: "panda" }, { thai: "มังกร", english: "dragon" }, { thai: "ยูนิคอร์น", english: "unicorn" }
             ],
             "ร่างกาย": [
-                { thai: "ตา", english: "eye" }, { thai: "หู", english: "ear" }, { thai: "จมูก", english: "nose" }, { thai: "ปาก", english: "mouth" }, { thai: "ฟัน", english: "tooth" }, { thai: "ลิ้น", english: "tongue" }, { thai: "ผม", english: "hair" }, { thai: "หน้า", english: "face" }, { thai: "คอ", english: "neck" }, { thai: "ไหล่", english: "shoulder" }, { thai: "แขน", english: "arm" }, { thai: "มือ", english: "hand" }, { thai: "นิ้ว", english: "finger" }, { thai: "ขา", english: "leg" }, { thai: "เท้า", english: "foot" }, { thai: "นิ้วเท้า", english: "toe" }, { thai: "ท้อง", english: "stomach" }, { thai: "หัวใจ", english: "heart" }, { thai: "สมอง", english: "brain" }, { thai: "กระดูก", english: "bone" }, { thai: "ผิวหนัง", english: "skin" }, { thai: "เลือด", english: "blood" }, { thai: "เข่า", english: "knee" }, { thai: "ข้อศอก", english: "elbow" }, { thai: "เล็บ", english: "nail" }
+                { thai: "ตา", english: "eye" }, { thai: "หู", english: "ear" }, { thai: "จมูก", english: "nose" }, { thai: "ปาก", english: "mouth" }, { thai: "ฟัน", english: "tooth" }, { thai: "ลิ้น", english: "tongue" }, { thai: "ผม", english: "hair" }, { thai: "หน้า", english: "face" }, { thai: "คอ", english: "neck" }, { thai: "ไหล่", english: "shoulder" }, { thai: "แขน", english: "arm" }, { thai: "มือ", english: "hand" }, { thai: "นิ้ว", english: "finger" }, { thai: "ขา", english: "leg" }, { thai: "เท้า", english: "foot" }, { thai: "นิ้วเท้า", english: "toe" }, { thai: "ท้อง", english: "stomach" }, { thai: "หัวใจ", english: "heart" }, { thai: "สมอง", english: "brain" }, { thai: "กระดูก", english: "bone" }, { thai: "ผิวหนัง", english: "skin" }, { thai: "เลือด", english: "blood" }, { thai: "เข่า", english: "knee" }, { thai: "ข้อศอก", english: "elbow" }, { thai: "เล็บ", english: "nail" }, { thai: "คาง", english: "chin" }, { thai: "แก้ม", english: "cheek" }, { thai: "ก้น", english: "buttocks" }, { thai: "หลัง", english: "back" }, { thai: "หน้าอก", english: "chest" }, { thai: "เอว", english: "waist" }
             ],
             "อุปกรณ์การเรียน": [
-                { thai: "ปากกา", english: "pen" }, { thai: "ดินสอ", english: "pencil" }, { thai: "ยางลบ", english: "eraser" }, { thai: "ไม้บรรทัด", english: "ruler" }, { thai: "กระดาษ", english: "paper" }, { thai: "สมุด", english: "notebook" }, { thai: "หนังสือ", english: "book" }, { thai: "กระเป๋านักเรียน", english: "school bag" }, { thai: "โต๊ะ", english: "table" }, { thai: "เก้าอี้", english: "chair" }, { thai: "กระดานดำ", english: "blackboard" }, { thai: "ชอล์ก", english: "chalk" }, { thai: "ปากกาเมจิก", english: "marker" }, { thai: "สีเทียน", english: "crayon" }, { thai: "สีน้ำ", english: "watercolor" }, { thai: "พู่กัน", english: "paintbrush" }, { thai: "กรรไกร", english: "scissors" }, { thai: "กาว", english: "glue" }, { thai: "แฟ้ม", english: "folder" }, { thai: "คอมพิวเตอร์", english: "computer" }, { thai: "โทรศัพท์", english: "telephone" }, { thai: "นาฬิกา", english: "clock" }, { thai: "ทีวี", english: "TV" }, { thai: "กล้อง", english: "camera" }, { thai: "เครื่องปริ้น", english: "printer" }
+                { thai: "ปากกา", english: "pen" }, { thai: "ดินสอ", english: "pencil" }, { thai: "ยางลบ", english: "eraser" }, { thai: "ไม้บรรทัด", english: "ruler" }, { thai: "กระดาษ", english: "paper" }, { thai: "สมุด", english: "notebook" }, { thai: "หนังสือ", english: "book" }, { thai: "กระเป๋านักเรียน", english: "school bag" }, { thai: "โต๊ะ", english: "table" }, { thai: "เก้าอี้", english: "chair" }, { thai: "กระดานดำ", english: "blackboard" }, { thai: "ชอล์ก", english: "chalk" }, { thai: "ปากกาเมจิก", english: "marker" }, { thai: "สีเทียน", english: "crayon" }, { thai: "สีน้ำ", english: "watercolor" }, { thai: "พู่กัน", english: "paintbrush" }, { thai: "กรรไกร", english: "scissors" }, { thai: "กาว", english: "glue" }, { thai: "แฟ้ม", english: "folder" }, { thai: "คอมพิวเตอร์", english: "computer" }, { thai: "โทรศัพท์", english: "telephone" }, { thai: "นาฬิกา", english: "clock" }, { thai: "ทีวี", english: "TV" }, { thai: "กล้อง", english: "camera" }
             ],
             "ครอบครัว": [
-                { thai: "พ่อ", english: "father" }, { thai: "แม่", english: "mother" }, { thai: "ลูกชาย", english: "son" }, { thai: "ลูกสาว", english: "daughter" }, { thai: "พี่ชาย", english: "elder brother" }, { thai: "น้องชาย", english: "younger brother" }, { thai: "พี่สาว", english: "elder sister" }, { thai: "น้องสาว", english: "younger sister" }, { thai: "ปู่/ตา", english: "grandfather" }, { thai: "ย่า/ยาย", english: "grandmother" }, { thai: "ลุง", english: "uncle" }, { thai: "ป้า", english: "aunt" }, { thai: "น้า", english: "aunt" }, { thai: "อา", english: "aunt/uncle" }, { thai: "หลาน", english: "nephew/niece" }, { thai: "ญาติ", english: "relative" }, { thai: "ครอบครัว", english: "family" }, { thai: "บ้าน", english: "home" }, { thai: "ห้องนอน", english: "bedroom" }, { thai: "ห้องน้ำ", english: "bathroom" }, { thai: "ห้องครัว", english: "kitchen" }, { thai: "ห้องนั่งเล่น", english: "living room" }, { thai: "ประตู", english: "door" }, { thai: "หน้าต่าง", english: "window" }, { thai: "หลังคา", english: "roof" }
+                { thai: "พ่อ", english: "father" }, { thai: "แม่", english: "mother" }, { thai: "ลูกชาย", english: "son" }, { thai: "ลูกสาว", english: "daughter" }, { thai: "พี่ชาย", english: "elder brother" }, { thai: "น้องชาย", english: "younger brother" }, { thai: "พี่สาว", english: "elder sister" }, { thai: "น้องสาว", english: "younger sister" }, { thai: "ปู่/ตา", english: "grandfather" }, { thai: "ย่า/ยาย", english: "grandmother" }, { thai: "ลุง", english: "uncle" }, { thai: "ป้า", english: "aunt" }, { thai: "น้า", english: "aunt" }, { thai: "อา", english: "aunt/uncle" }, { thai: "หลาน", english: "nephew/niece" }, { thai: "ญาติ", english: "relative" }, { thai: "ครอบครัว", english: "family" }, { thai: "บ้าน", english: "house" }, { thai: "ห้องนอน", english: "bedroom" }, { thai: "ห้องน้ำ", english: "bathroom" }, { thai: "ห้องครัว", english: "kitchen" }, { thai: "ห้องนั่งเล่น", english: "living room" }, { thai: "ประตู", english: "door" }, { thai: "หน้าต่าง", english: "window" }, { thai: "หลังคา", english: "roof" }, { thai: "เตียง", english: "bed" }, { thai: "หมอน", english: "pillow" }, { thai: "ผ้าห่ม", english: "blanket" }, { thai: "ตู้เสื้อผ้า", english: "wardrobe" }, { thai: "โซฟา", english: "sofa" }, { thai: "โต๊ะกินข้าว", english: "dining table" }, { thai: "จาน", english: "plate" }, { thai: "ช้อน", english: "spoon" }, { thai: "ส้อม", english: "fork" }, { thai: "มีด", english: "knife" }, { thai: "แก้วน้ำ", english: "glass" }, { thai: "ถ้วย", english: "cup" }, { thai: "หม้อ", english: "pot" }, { thai: "กระทะ", english: "pan" }, { thai: "เตา", english: "stove" }, { thai: "ตู้เย็น", english: "refrigerator" }, { thai: "เครื่องซักผ้า", english: "washing machine" }, { thai: "ทีวี", english: "television" }, { thai: "โทรศัพท์", english: "telephone" }, { thai: "คอมพิวเตอร์", english: "computer" }, { thai: "หนังสือ", english: "book" }, { thai: "ของเล่น", english: "toy" }, { thai: "รถ", english: "car" }
             ],
             "อาหารและเครื่องดื่ม": [
-                { thai: "ข้าว", english: "rice" }, { thai: "ขนมปัง", english: "bread" }, { thai: "นม", english: "milk" }, { thai: "น้ำ", english: "water" }, { thai: "ไข่", english: "egg" }, { thai: "เนื้อ", english: "meat" }, { thai: "ปลา", english: "fish" }, { thai: "ไก่", english: "chicken" }, { thai: "น้ำส้ม", english: "orange juice" }, { thai: "น้ำเปล่า", english: "drinking water" }, { thai: "ชา", english: "tea" }, { thai: "กาแฟ", english: "coffee" }, { thai: "น้ำตาล", english: "sugar" }, { thai: "เกลือ", english: "salt" }, { thai: "พริกไทย", english: "pepper" }, { thai: "เค้ก", english: "cake" }, { thai: "ไอศกรีม", english: "ice cream" }, { thai: "คุกกี้", english: "cookie" }, { thai: "พิซซ่า", english: "pizza" }, { thai: "เบอร์เกอร์", english: "hamburger" }, { thai: "ไส้กรอก", english: "sausage" }, { thai: "แซนด์วิช", english: "sandwich" }, { thai: "ซุป", english: "soup" }, { thai: "สลัด", english: "salad" }, { thai: "ขนม", english: "dessert" }
+                { thai: "ข้าว", english: "rice" }, { thai: "ขนมปัง", english: "bread" }, { thai: "นม", english: "milk" }, { thai: "น้ำ", english: "water" }, { thai: "ไข่", english: "egg" }, { thai: "เนื้อ", english: "meat" }, { thai: "ปลา", english: "fish" }, { thai: "ไก่", english: "chicken" }, { thai: "ผัก", english: "vegetable" }, { thai: "ผลไม้", english: "fruit" }, { thai: "กล้วย", english: "banana" }, { thai: "สับปะรด", english: "pineapple" }, { thai: "ส้ม", english: "orange" }, { thai: "แอปเปิ้ล", english: "apple" }, { thai: "มะม่วง", english: "mango" }, { thai: "ข้าวโพด", english: "corn" }, { thai: "มะเขือเทศ", english: "tomato" }, { thai: "มันฝรั่ง", english: "potato" }, { thai: "แครอท", english: "carrot" }, { thai: "น้ำส้ม", english: "orange juice" }, { thai: "น้ำเปล่า", english: "drinking water" }, { thai: "ชา", english: "tea" }, { thai: "กาแฟ", english: "coffee" }, { thai: "น้ำตาล", english: "sugar" }, { thai: "เกลือ", english: "salt" }, { thai: "พริกไทย", english: "pepper" }, { thai: "เค้ก", english: "cake" }, { thai: "ไอศกรีม", english: "ice cream" }, { thai: "คุกกี้", english: "cookie" }, { thai: "พิซซ่า", english: "pizza" }, { thai: "เบอร์เกอร์", english: "hamburger" }, { thai: "ไส้กรอก", english: "sausage" }, { thai: "แซนด์วิช", english: "sandwich" }, { thai: "ซุป", english: "soup" }, { thai: "สลัด", english: "salad" }, { thai: "ขนม", english: "dessert" }, { thai: "ขนมหวาน", english: "sweets" }, { thai: "ลูกอม", english: "candy" }, { thai: "ช็อกโกแลต", english: "chocolate" }, { thai: "ข้าวสวย", english: "cooked rice" }, { thai: "ข้าวต้ม", english: "rice soup" }, { thai: "ก๋วยเตี๋ยว", english: "noodle soup" }, { thai: "ข้าวผัด", english: "fried rice" }, { thai: "หมูทอด", english: "fried pork" }, { thai: "ไก่ทอด", english: "fried chicken" }, { thai: "ปลาทอด", english: "fried fish" }, { thai: "ไข่เจียว", english: "omelet" }, { thai: "ไข่ต้ม", english: "boiled egg" }, { thai: "ไข่ดาว", english: "fried egg" }
             ],
             "เสื้อผ้าและเครื่องแต่งกาย": [
-                { thai: "เสื้อ", english: "shirt" }, { thai: "กางเกง", english: "pants" }, { thai: "กระโปรง", english: "skirt" }, { thai: "ชุด", english: "dress" }, { thai: "ถุงเท้า", english: "sock" }, { thai: "รองเท้า", english: "shoes" }, { thai: "หมวก", english: "hat" }, { thai: "เสื้อกันหนาว", english: "sweater" }, { thai: "เสื้อโค้ท", english: "coat" }, { thai: "เสื้อยืด", english: "T-shirt" }, { thai: "กางเกงขาสั้น", english: "shorts" }, { thai: "ถุงมือ", english: "glove" }, { thai: "ผ้าพันคอ", english: "scarf" }, { thai: "เข็มขัด", english: "belt" }, { thai: "แว่นตา", english: "glasses" }, { thai: "นาฬิกา", english: "watch" }, { thai: "สร้อยคอ", english: "necklace" }, { thai: "แหวน", english: "ring" }, { thai: "ต่างหู", english: "earrings" }, { thai: "รองเท้าแตะ", english: "sandals" }, { thai: "ชุดว่ายน้ำ", english: "swimsuit" }, { thai: "ชุดนอน", english: "pajamas" }, { thai: "ผ้าเช็ดหน้า", english: "handkerchief" }, { thai: "ผ้าขนหนู", english: "towel" }, { thai: "หมวกแก๊ป", english: "cap" }
+                { thai: "เสื้อ", english: "shirt" }, { thai: "กางเกง", english: "pants" }, { thai: "กระโปรง", english: "skirt" }, { thai: "ชุด", english: "dress" }, { thai: "ถุงเท้า", english: "sock" }, { thai: "รองเท้า", english: "shoes" }, { thai: "หมวก", english: "hat" }, { thai: "เสื้อกันหนาว", english: "sweater" }, { thai: "เสื้อโค้ท", english: "coat" }, { thai: "เสื้อยืด", english: "T-shirt" }, { thai: "กางเกงขาสั้น", english: "shorts" }, { thai: "ถุงมือ", english: "glove" }, { thai: "ผ้าพันคอ", english: "scarf" }, { thai: "เข็มขัด", english: "belt" }, { thai: "แว่นตา", english: "glasses" }, { thai: "นาฬิกา", english: "watch" }, { thai: "สร้อยคอ", english: "necklace" }, { thai: "แหวน", english: "ring" }, { thai: "ต่างหู", english: "earring" }, { thai: "กระเป๋า", english: "bag" }, { thai: "กระเป๋าเงิน", english: "wallet" }, { thai: "ร่ม", english: "umbrella" }, { thai: "เสื้อกันฝน", english: "raincoat" }, { thai: "ชุดนอน", english: "pajamas" }, { thai: "ชุดว่ายน้ำ", english: "swimsuit" }, { thai: "ชุดนักเรียน", english: "school uniform" }, { thai: "ผ้าเช็ดหน้า", english: "handkerchief" }, { thai: "ผ้าเช็ดตัว", english: "towel" }, { thai: "ผ้าขนหนู", english: "face towel" }, { thai: "เสื้อแขนยาว", english: "long-sleeve shirt" }, { thai: "เสื้อแขนสั้น", english: "short-sleeve shirt" }, { thai: "รองเท้าแตะ", english: "sandals" }, { thai: "รองเท้าผ้าใบ", english: "sneakers" }, { thai: "รองเท้าบูท", english: "boots" }, { thai: "กระเป๋าเป้", english: "backpack" }, { thai: "กระโปรงสั้น", english: "mini skirt" }, { thai: "กระโปรงยาว", english: "long skirt" }, { thai: "กางเกงยีนส์", english: "jeans" }, { thai: "กางเกงขายาว", english: "trousers" }, { thai: "กางเกงขาสั้น", english: "shorts" }, { thai: "กางเกงใน", english: "underwear" }, { thai: "เสื้อใน", english: "bra" }, { thai: "ถุงน่อง", english: "stockings" }, { thai: "ผ้าคลุมไหล่", english: "shawl" }, { thai: "ผ้าพันคอ", english: "neckerchief" }, { thai: "ผ้าเช็ดปาก", english: "napkin" }, { thai: "เสื้อกั๊ก", english: "vest" }, { thai: "แจ็คเก็ต", english: "jacket" }, { thai: "เครื่องแบบ", english: "uniform" }
             ],
-            "กีฬา": [
-                { thai: "ฟุตบอล", english: "football" }, { thai: "บาสเกตบอล", english: "basketball" }, { thai: "วอลเลย์บอล", english: "volleyball" }, { thai: "เทนนิส", english: "tennis" }, { thai: "แบดมินตัน", english: "badminton" }, { thai: "ว่ายน้ำ", english: "swimming" }, { thai: "วิ่ง", english: "running" }, { thai: "กอล์ฟ", english: "golf" }, { thai: "มวย", english: "boxing" }, { thai: "ยิมนาสติก", english: "gymnastics" }, { thai: "โยคะ", english: "yoga" }, { thai: "สเก็ต", english: "skating" }, { thai: "จักรยาน", english: "cycling" }, { thai: "ตกปลา", english: "fishing" }, { thai: "พายเรือ", english: "rowing" }, { thai: "ยิงธนู", english: "archery" }, { thai: "ฮอกกี้", english: "hockey" }, { thai: "เบสบอล", english: "baseball" }, { thai: "ปิงปอง", english: "table tennis" }, { thai: "เจ็ตสกี", english: "jet ski" }, { thai: "ปีนเขา", english: "climbing" }, { thai: "กระโดด", english: "jumping" }, { thai: "โยน", english: "throwing" }, { thai: "สนาม", english: "field" }, { thai: "ทีม", english: "team" }
+            "กีฬาต่างๆ": [
+                { thai: "ฟุตบอล", english: "football/soccer" },
+                { thai: "บาสเกตบอล", english: "basketball" },
+                { thai: "วอลเลย์บอล", english: "volleyball" },
+                { thai: "เทนนิส", english: "tennis" },
+                { thai: "แบดมินตัน", english: "badminton" },
+                { thai: "ว่ายน้ำ", english: "swimming" },
+                { thai: "วิ่ง", english: "running" },
+                { thai: "ชกมวย", english: "boxing" },
+                { thai: "กอล์ฟ", english: "golf" },
+                { thai: "โบว์ลิ่ง", english: "bowling" },
+                { thai: "ปิงปอง", english: "table tennis" },
+                { thai: "ยิงธนู", english: "archery" },
+                { thai: "ยิมนาสติก", english: "gymnastics" },
+                { thai: "ฮอกกี้", english: "hockey" },
+                { thai: "รักบี้", english: "rugby" },
+                { thai: "จักรยาน", english: "cycling" },
+                { thai: "สเกตบอร์ด", english: "skateboarding" },
+                { thai: "สกี", english: "skiing" },
+                { thai: "โต้คลื่น", english: "surfing" },
+                { thai: "ปีนเขา", english: "climbing" },
+                { thai: "เบสบอล", english: "baseball" },
+                { thai: "คริกเก็ต", english: "cricket" },
+                { thai: "หมากรุก", english: "chess" },
+                { thai: "พายเรือ", english: "rowing" },
+                { thai: "ยกน้ำหนัก", english: "weightlifting" },
+                { thai: "ยูโด", english: "judo" },
+                { thai: "เทควันโด", english: "taekwondo" }
             ],
             "พืชผักผลไม้": [
                 { thai: "ผัก", english: "vegetable" }, { thai: "ผลไม้", english: "fruit" }, { thai: "กล้วย", english: "banana" }, { thai: "สับปะรด", english: "pineapple" }, { thai: "ส้ม", english: "orange" }, { thai: "แอปเปิ้ล", english: "apple" }, { thai: "มะม่วง", english: "mango" }, { thai: "ข้าวโพด", english: "corn" }, { thai: "มะเขือเทศ", english: "tomato" }, { thai: "มันฝรั่ง", english: "potato" }, { thai: "แครอท", english: "carrot" }, { thai: "องุ่น", english: "grape" }, { thai: "แตงโม", english: "watermelon" }, { thai: "สตรอว์เบอร์รี", english: "strawberry" }, { thai: "มะพร้าว", english: "coconut" }, { thai: "ลำไย", english: "longan" }, { thai: "ฝรั่ง", english: "guava" }, { thai: "มะนาว", english: "lime" }, { thai: "มะละกอ", english: "papaya" }, { thai: "ทุเรียน", english: "durian" }, { thai: "พริก", english: "chili" }, { thai: "กระเทียม", english: "garlic" }, { thai: "หอมใหญ่", english: "onion" }, { thai: "ผักกาด", english: "lettuce" }, { thai: "กะหล่ำ", english: "cabbage" }
             ],
             "สี": [
-                { thai: "แดง", english: "red" }, { thai: "เหลือง", english: "yellow" }, { thai: "น้ำเงิน", english: "blue" }, { thai: "เขียว", english: "green" }, { thai: "ส้ม", english: "orange" }, { thai: "ม่วง", english: "purple" }, { thai: "ชมพู", english: "pink" }, { thai: "น้ำตาล", english: "brown" }, { thai: "ดำ", english: "black" }, { thai: "ขาว", english: "white" }, { thai: "เทา", english: "gray" }, { thai: "ทอง", english: "gold" }, { thai: "เงิน", english: "silver" }, { thai: "ฟ้า", english: "sky blue" }, { thai: "คราม", english: "indigo" }, { thai: "บานเย็น", english: "magenta" }, { thai: "มะกอก", english: "olive" }, { thai: "ครีม", english: "cream" }, { thai: "กรมท่า", english: "navy" }, { thai: "เขียวอ่อน", english: "light green" }, { thai: "เขียวเข้ม", "english": "dark green" }, { thai: "สดใส", english: "bright" }, { thai: "ซีด", english: "pale" }, { thai: "ทึบ", english: "opaque" }, { thai: "ใส", english: "clear" }
+                { thai: "แดง", english: "red" }, { thai: "เหลือง", english: "yellow" }, { thai: "น้ำเงิน", english: "blue" }, { thai: "เขียว", english: "green" }, { thai: "ส้ม", english: "orange" }, { thai: "ม่วง", english: "purple" }, { thai: "ชมพู", english: "pink" }, { thai: "น้ำตาล", english: "brown" }, { thai: "ดำ", english: "black" }, { thai: "ขาว", english: "white" }, { thai: "เทา", english: "gray" }, { thai: "ทอง", english: "gold" }, { thai: "เงิน", english: "silver" }, { thai: "ฟ้า", english: "sky blue" }, { thai: "คราม", english: "indigo" }, { thai: "บานเย็น", english: "magenta" }, { thai: "มะกอก", english: "olive" }, { thai: "ครีม", english: "cream" }, { thai: "กรมท่า", english: "navy" }, { thai: "เขียวอ่อน", english: "light green" }, { thai: "เขียวเข้ม", english: "dark green" }, { thai: "สดใส", english: "bright" }, { thai: "ซีด", english: "pale" }, { thai: "ทึบ", english: "opaque" }, { thai: "ใส", english: "clear" }
             ],
             "ตัวเลข": [
                 { thai: "หนึ่ง", english: "one" }, { thai: "สอง", english: "two" }, { thai: "สาม", english: "three" }, { thai: "สี่", english: "four" }, { thai: "ห้า", english: "five" }, { thai: "หก", english: "six" }, { thai: "เจ็ด", english: "seven" }, { thai: "แปด", english: "eight" }, { thai: "เก้า", english: "nine" }, { thai: "สิบ", english: "ten" }, { thai: "สิบเอ็ด", english: "eleven" }, { thai: "สิบสอง", english: "twelve" }, { thai: "ยี่สิบ", english: "twenty" }, { thai: "สามสิบ", english: "thirty" }, { thai: "ร้อย", english: "hundred" }, { thai: "พัน", english: "thousand" }, { thai: "หมื่น", english: "ten thousand" }, { thai: "แสน", english: "hundred thousand" }, { thai: "ล้าน", english: "million" }, { thai: "ศูนย์", english: "zero" }, { thai: "คู่", english: "even" }, { thai: "คี่", english: "odd" }, { thai: "น้อยกว่า", english: "less than" }, { thai: "มากกว่า", english: "greater than" }, { thai: "เท่ากับ", english: "equal to" }
@@ -279,8 +292,8 @@
             "รูปทรง": [
                 { thai: "วงกลม", english: "circle" }, { thai: "สี่เหลี่ยม", english: "square" }, { thai: "สามเหลี่ยม", english: "triangle" }, { thai: "วงรี", english: "oval" }, { thai: "ห้าเหลี่ยม", english: "pentagon" }, { thai: "หกเหลี่ยม", english: "hexagon" }, { thai: "ดาว", english: "star" }, { thai: "หัวใจ", english: "heart" }, { thai: "สี่เหลี่ยมจัตุรัส", english: "rectangle" }, { thai: "สี่เหลี่ยมผืนผ้า", english: "rectangle" }, { thai: "ลูกบาศก์", english: "cube" }, { thai: "ทรงกลม", english: "sphere" }, { thai: "ทรงกระบอก", english: "cylinder" }, { thai: "พีระมิด", english: "pyramid" }, { thai: "โคน", english: "cone" }, { thai: "เส้นตรง", english: "straight line" }, { thai: "เส้นโค้ง", english: "curve" }, { thai: "จุด", english: "point" }, { thai: "มุม", english: "angle" }, { thai: "ด้าน", english: "side" }, { thai: "พื้นผิว", english: "surface" }, { thai: "ขนาด", english: "size" }, { thai: "เล็ก", english: "small" }, { thai: "ใหญ่", english: "big" }, { thai: "บาง", english: "thin" }
             ],
-            "อารมณ์": [
-                { thai: "สุข", english: "happy" }, { thai: "เศร้า", english: "sad" }, { thai: "โกรธ", english: "angry" }, { thai: "กลัว", english: "afraid" }, { thai: "ตกใจ", english: "shocked" }, { thai: "เบื่อ", english: "bored" }, { thai: "ง่วง", english: "sleepy" }, { thai: "หิว", english: "hungry" }, { thai: "กระหาย", english: "thirsty" }, { thai: "ประหลาดใจ", english: "surprised" }, { thai: "ตื่นเต้น", english: "excited" }, { thai: "สนุก", english: "fun" }, { thai: "เหงา", english: "lonely" }, { thai: "กังวล", english: "worried" }, { thai: "สบายใจ", english: "comfortable" }, { thai: "อาย", english: "shy" }, { thai: "มั่นใจ", english: "confident" }, { thai: "ขี้เล่น", english: "playful" }, { thai: "ตลก", english: "funny" }, { thai: "ร้องไห้", english: "crying" }, { thai: "หัวเราะ", english: "laughing" }, { thai: "ยิ้ม", english: "smiling" }, { thai: "ขมวดคิ้ว", english: "frowning" }, { thai: "ดีใจ", english: "joyful" }, { thai: "พึงพอใจ", english: "satisfied" }
+            "อารมณ์และความรู้สึก": [
+                { thai: "มีความสุข", english: "happy" }, { thai: "เศร้า", english: "sad" }, { thai: "โกรธ", english: "angry" }, { thai: "กลัว", english: "scared" }, { thai: "ประหลาดใจ", english: "surprised" }, { thai: "เหนื่อย", english: "tired" }, { thai: "ง่วงนอน", english: "sleepy" }, { thai: "หิว", english: "hungry" }, { thai: "กระหายน้ำ", english: "thirsty" }, { thai: "สนุก", english: "fun" }, { thai: "เบื่อ", english: "bored" }, { thai: "รัก", english: "love" }, { thai: "เกลียด", english: "hate" }, { thai: "อาย", english: "shy" }, { thai: "ตื่นเต้น", english: "excited" }, { thai: "สงบ", english: "calm" }, { thai: "ดีใจ", english: "glad" }, { thai: "เสียใจ", english: "sorry" }, { thai: "กังวล", english: "worried" }, { thai: "ตกใจ", english: "shocked" }, { thai: "เจ็บ", english: "hurt" }, { thai: "สบายดี", english: "fine" }, { thai: "ไม่สบาย", english: "sick" }, { thai: "ป่วย", english: "ill" }, { thai: "แข็งแรง", english: "strong" }, { thai: "อ่อนแอ", english: "weak" }, { thai: "ขยัน", english: "diligent" }, { thai: "ขี้เกียจ", english: "lazy" }, { thai: "ใจดี", english: "kind" }, { thai: "ใจร้าย", english: "mean" }, { thai: "ฉลาด", english: "smart" }, { thai: "โง่", english: "foolish" }, { thai: "กล้าหาญ", english: "brave" }, { thai: "ขี้ขลาด", english: "cowardly" }, { thai: "ร่าเริง", english: "cheerful" }, { thai: "เงียบ", english: "quiet" }, { thai: "เสียงดัง", english: "loud" }, { thai: "ใจเย็น", english: "patient" }, { thai: "ใจร้อน", english: "impatient" }, { thai: "ขี้แย", english: "crybaby" }, { thai: "ขำ", english: "funny" }, { thai: "น่ารัก", english: "cute" }, { thai: "น่าเกลียด", english: "ugly" }, { thai: "สวย", english: "beautiful" }, { thai: "หล่อ", english: "handsome" }, { thai: "สะอาด", english: "clean" }, { thai: "สกปรก", english: "dirty" }
             ],
             "สถานที่": [
                 { thai: "บ้าน", english: "home" }, { thai: "โรงเรียน", english: "school" }, { thai: "สวน", english: "garden" }, { thai: "ตลาด", english: "market" }, { thai: "โรงพยาบาล", english: "hospital" }, { thai: "ธนาคาร", english: "bank" }, { thai: "วัด", english: "temple" }, { thai: "โบสถ์", english: "church" }, { thai: "ทะเล", english: "sea" }, { thai: "ภูเขา", english: "mountain" }, { thai: "แม่น้ำ", english: "river" }, { thai: "ป่า", english: "forest" }, { thai: "ถนน", english: "road" }, { thai: "สะพาน", english: "bridge" }, { thai: "ร้านค้า", english: "shop" }, { thai: "สนามบิน", english: "airport" }, { thai: "สถานีรถไฟ", english: "train station" }, { thai: "ห้องสมุด", english: "library" }, { thai: "โรงหนัง", english: "cinema" }, { thai: "สระว่ายน้ำ", english: "swimming pool" }, { thai: "ที่จอดรถ", english: "parking lot" }, { thai: "ห้องครัว", english: "kitchen" }, { thai: "ห้องน้ำ", english: "bathroom" }, { thai: "สนามเด็กเล่น", english: "playground" }, { thai: "โรงยิม", english: "gym" }
@@ -289,10 +302,40 @@
                 { thai: "รถยนต์", english: "car" }, { thai: "รถบัส", english: "bus" }, { thai: "รถไฟ", english: "train" }, { thai: "เรือ", english: "boat" }, { thai: "เครื่องบิน", english: "airplane" }, { thai: "รถจักรยาน", english: "bicycle" }, { thai: "มอเตอร์ไซค์", english: "motorcycle" }, { thai: "รถบรรทุก", english: "truck" }, { thai: "รถพยาบาล", english: "ambulance" }, { thai: "รถดับเพลิง", english: "fire truck" }, { thai: "แท็กซี่", english: "taxi" }, { thai: "เรือดำน้ำ", english: "submarine" }, { thai: "รถตู้", english: "van" }, { thai: "เฮลิคอปเตอร์", english: "helicopter" }, { thai: "รถแทรคเตอร์", english: "tractor" }, { thai: "รถราง", english: "tram" }, { thai: "เรือใบ", english: "sailboat" }, { thai: "สเก็ตบอร์ด", english: "skateboard" }, { thai: "จักรยานยนต์", english: "moped" }, { thai: "เรือยนต์", english: "motorboat" }, { thai: "รถไฟใต้ดิน", english: "subway" }, { thai: "รถลาก", english: "cart" }, { thai: "ล้อ", english: "wheel" }, { thai: "เครื่องยนต์", english: "engine" }, { thai: "ใบพัด", english: "propeller" }
             ],
             "อาชีพ": [
-                { thai: "ครู", english: "teacher" }, { thai: "หมอ", english: "doctor" }, { thai: "พยาบาล", english: "nurse" }, { thai: "ตำรวจ", english: "police" }, { thai: "ทหาร", english: "soldier" }, { thai: "วิศวกร", english: "engineer" }, { thai: "นักดับเพลิง", english: "firefighter" }, { thai: "นักบิน", english: "pilot" }, { thai: "พ่อครัว", english: "chef" }, { thai: "ชาวนา", english: "farmer" }, { thai: "นักกีฬา", english: "athlete" }, { thai: "นักร้อง", english: "singer" }, { thai: "นักเต้น", english: "dancer" }, { thai: "ศิลปิน", english: "artist" }, { thai: "สถาปนิก", english: "architect" }, { thai: "นักข่าว", english: "journalist" }, { thai: "คนขับรถ", english: "driver" }, { thai: "ช่าง", english: "mechanic" }, { thai: "นักวิทยาศาสตร์", english: "scientist" }, { thai: "ผู้จัดการ", english: "manager" }, { thai: "พนักงาน", english: "employee" }, { thai: "นักเรียน", english: "student" }, { thai: "แม่บ้าน", english: "housekeeper" }, { thai: "นักบัญชี", english: "accountant" }, { thai: "เภสัชกร", english: "pharmacist" }
+                { thai: "ครู", english: "teacher" },
+                { thai: "นักเรียน", english: "student" },
+                { thai: "หมอ", english: "doctor" }, 
+                { thai: "พยาบาล", english: "nurse" }, 
+                { thai: "นักวิทยาศาสตร์", english: "scientist" },
+                { thai: "วิศวกร", english: "engineer" },
+                { thai: "ช่างไม้", english: "carpenter" },
+                { thai: "ตำรวจ", english: "police officer" }, 
+                { thai: "นักดับเพลิง", english: "firefighter" },
+                { thai: "ทหาร", english: "soldier" }, 
+                { thai: "นักบิน", english: "pilot" }, 
+                { thai: "นักสำรวจ", english: "explorer" },
+                { thai: "ชาวนา", english: "farmer" }, 
+                { thai: "ชาวประมง", english: "fisherman" }, 
+                { thai: "เชฟ", english: "chef" }, 
+                { thai: "พนักงาน", english: "employee/staff" },
+                { thai: "นักธุรกิจ", english: "businessman/woman" }, 
+                { thai: "นักข่าว", english: "reporter" }, 
+                { thai: "นักเขียน", english: "writer" }, 
+                { thai: "นักวิจารณ์", english: "critic/reviewer" },
+                { thai: "นักร้อง", english: "singer" }, 
+                { thai: "นักเต้น", english: "dancer" }, 
+                { thai: "นักกีฬา", english: "athlete" }, 
+                { thai: "สัตวแพทย์", english: "veterinarian" },
+                { thai: "ช่างทำผม", english: "hairdresser" }, 
+                { thai: "ช่างยนต์", english: "mechanic" }, 
+                { thai: "นักบินอวกาศ", english: "astronaut" }, 
+                { thai: "นักออกแบบ", english: "designer" }, 
+                { thai: "คนขับรถ", english: "driver" },
+                { thai: "พระภิกษุ", english: "monk" },
+                { thai: "นักบวช", english: "cleric/priest" }
             ],
-            "กริยา": [
-                { thai: "กิน", english: "eat" }, { thai: "ดื่ม", english: "drink" }, { thai: "นอน", english: "sleep" }, { thai: "เดิน", english: "walk" }, { thai: "วิ่ง", english: "run" }, { thai: "กระโดด", english: "jump" }, { thai: "บิน", english: "fly" }, { thai: "ว่ายน้ำ", english: "swim" }, { thai: "พูด", english: "speak" }, { thai: "ฟัง", english: "listen" }, { thai: "ดู", english: "look" }, { thai: "เขียน", english: "write" }, { thai: "อ่าน", english: "read" }, { thai: "เล่น", english: "play" }, { thai: "ทำงาน", english: "work" }, { thai: "เรียน", english: "study" }, { thai: "สอน", english: "teach" }, { thai: "เปิด", english: "open" }, { thai: "ปิด", english: "close" }, { thai: "นั่ง", english: "sit" }, { thai: "ยืน", english: "stand" }, { thai: "ร้องเพลง", english: "sing" }, { thai: "เต้นรำ", english: "dance" }, { thai: "สร้าง", english: "build" }, { thai: "ช่วย", english: "help" }
+            "คำกริยาพื้นฐาน": [
+                { thai: "เดิน", english: "walk" }, { thai: "วิ่ง", english: "run" }, { thai: "นั่ง", english: "sit" }, { thai: "ยืน", english: "stand" }, { thai: "นอน", english: "sleep" }, { thai: "กิน", english: "eat" }, { thai: "ดื่ม", english: "drink" }, { thai: "เล่น", english: "play" }, { thai: "อ่าน", english: "read" }, { thai: "เขียน", english: "write" }, { thai: "วาด", english: "draw" }, { thai: "ระบายสี", english: "color" }, { thai: "ร้องเพลง", english: "sing" }, { thai: "เต้น", english: "dance" }, { thai: "กระโดด", english: "jump" }, { thai: "บิน", english: "fly" }, { thai: "ว่ายน้ำ", english: "swim" }, { thai: "เปิด", english: "open" }, { thai: "ปิด", english: "close" }, { thai: "ให้", english: "give" }, { thai: "รับ", english: "receive" }, { thai: "มา", english: "come" }, { thai: "ไป", english: "go" }, { thai: "ดู", english: "look" }, { thai: "ฟัง", english: "listen" }, { thai: "พูด", english: "speak" }, { thai: "บอก", english: "tell" }, { thai: "ถาม", english: "ask" }, { thai: "ตอบ", english: "answer" }, { thai: "หัวเราะ", english: "laugh" }, { thai: "ร้องไห้", english: "cry" }, { thai: "ยิ้ม", english: "smile" }, { thai: "ตื่น", english: "wake up" }, { thai: "อาบน้ำ", english: "take a shower" }, { thai: "แปรงฟัน", english: "brush teeth" }, { thai: "แต่งตัว", english: "get dressed" }, { thai: "ช่วย", english: "help" }, { thai: "สร้าง", english: "build" }, { thai: "ทำ", english: "do/make" }, { thai: "ซื้อ", english: "buy" }, { thai: "ขาย", english: "sell" }, { thai: "นับ", english: "count" }, { thai: "เรียน", english: "learn" }, { thai: "สอน", english: "teach" }, { thai: "รู้", english: "know" }, { thai: "คิด", english: "think" }, { thai: "รู้สึก", english: "feel" }, { thai: "ชอบ", english: "like" }, { thai: "ไม่ชอบ", english: "dislike" }, { thai: "มี", english: "have" }, { thai: "เป็น", english: "am/is/are" }
             ],
             "ธรรมชาติ": [
                 { thai: "พระอาทิตย์", english: "sun" }, { thai: "พระจันทร์", english: "moon" }, { thai: "ดาว", english: "star" }, { thai: "ท้องฟ้า", english: "sky" }, { thai: "เมฆ", english: "cloud" }, { thai: "ฝน", english: "rain" }, { thai: "หิมะ", english: "snow" }, { thai: "ลม", english: "wind" }, { thai: "ดิน", english: "soil" }, { thai: "หิน", english: "rock" }, { thai: "ต้นไม้", english: "tree" }, { thai: "ดอกไม้", english: "flower" }, { thai: "ใบไม้", english: "leaf" }, { thai: "ภูเขา", english: "mountain" }, { thai: "แม่น้ำ", english: "river" }, { thai: "ทะเล", english: "sea" }, { thai: "ป่า", english: "forest" }, { thai: "อากาศ", english: "air" }, { thai: "แสง", english: "light" }, { thai: "เงา", english: "shadow" }, { thai: "ร้อน", english: "hot" }, { thai: "หนาว", english: "cold" }, { thai: "ฤดู", english: "season" }, { thai: "ฤดูร้อน", english: "summer" }, { thai: "ฤดูหนาว", english: "winter" }
@@ -303,259 +346,274 @@
             "ทิศทาง": [
                 { thai: "เหนือ", english: "north" }, { thai: "ใต้", english: "south" }, { thai: "ตะวันออก", english: "east" }, { thai: "ตะวันตก", english: "west" }, { thai: "ซ้าย", english: "left" }, { thai: "ขวา", english: "right" }, { thai: "บน", english: "up" }, { thai: "ล่าง", english: "down" }, { thai: "หน้า", english: "front" }, { thai: "หลัง", english: "back" }, { thai: "ข้างใน", english: "inside" }, { thai: "ข้างนอก", english: "outside" }, { thai: "ข้างๆ", english: "beside" }, { thai: "ตรงข้าม", english: "opposite" }, { thai: "รอบๆ", english: "around" }, { thai: "ใกล้", english: "near" }, { thai: "ไกล", english: "far" }, { thai: "ตรงไป", english: "straight" }, { thai: "โค้ง", english: "curve" }, { thai: "ที่นี่", english: "here" }, { thai: "ที่นั่น", english: "there" }, { thai: "ตรงกลาง", english: "middle" }, { thai: "สูง", english: "high" }, { thai: "ต่ำ", english: "low" }, { thai: "ลึก", english: "deep" }
             ],
-            "เครื่องหมายพิเศษ": [
-                { thai: "แอด (สัญลักษณ์)", english: "at sign (@)" }, { thai: "แฮชแท็ก", english: "hashtag (#)" }, { thai: "ดอลลาร์", english: "dollar sign ($)" }, { thai: "เปอร์เซ็นต์", english: "percent sign (%)" }, { thai: "และ", english: "ampersand (&)" }, 
-                { thai: "ดอกจัน", english: "asterisk (*)" }, { thai: "วงเล็บเปิด", english: "open parenthesis (()" }, { thai: "วงเล็บปิด", english: "close parenthesis ())" }, { thai: "ลบ", english: "minus sign (-)" }, { thai: "บวก", english: "plus sign (+)" },
-                { thai: "เท่ากับ", english: "equal sign (=)" }, { thai: "โคลอน", english: "colon (:)" }, { thai: "เซมิโคลอน", english: "semicolon (;)" }, { thai: "เครื่องหมายคำถาม", english: "question mark (?)" }, { thai: "เครื่องหมายตกใจ", english: "exclamation mark (!)" },
-                { thai: "ลูกน้ำ", english: "comma (,)" }, { thai: "จุด", english: "period (.)" }, { thai: "ทับ", english: "slash (/)" }, { thai: "ขีดล่าง", english: "underscore (_)" }, { thai: "เครื่องหมายอัญประกาศ", english: "quotation marks (\"\")" },
-                { thai: "ขีดเส้น", english: "hyphen (-)" }, { thai: "วงเล็บเหลี่ยม", english: "square brackets ([])" }, { thai: "วงเล็บปีกกา", english: "curly braces ({})" }, { thai: "ไปข้างหน้า", english: "caret (^)" }, { thai: "ตัวหนอน", english: "tilde (~)" }
+            "สถานที่และสิ่งของ": [
+                { thai: "โรงเรียน", english: "school" }, { thai: "บ้าน", english: "house" }, { thai: "สวน", english: "garden" }, { thai: "สนามเด็กเล่น", english: "playground" }, { thai: "ตลาด", english: "market" }, { thai: "โรงพยาบาล", english: "hospital" }, { thai: "ตำรวจ", english: "police station" }, { thai: "ดับเพลิง", english: "fire station" }, { thai: "ถนน", english: "road" }, { thai: "สะพาน", english: "bridge" }, { thai: "แม่น้ำ", english: "river" }, { thai: "ภูเขา", english: "mountain" }, { thai: "ทะเล", english: "sea" }, { thai: "ชายหาด", english: "beach" }, { thai: "ป่า", english: "forest" }, { thai: "ต้นไม้", english: "tree" }, { thai: "ดอกไม้", english: "flower" }, { thai: "หญ้า", english: "grass" }, { thai: "หิน", english: "rock" }, { thai: "ดิน", english: "soil" }, { thai: "ทราย", english: "sand" }, { thai: "ฟ้า", english: "sky" }, { thai: "เมฆ", english: "cloud" }, { thai: "ดวงอาทิตย์", english: "sun" }, { thai: "ดวงจันทร์", english: "moon" }, { thai: "ดาว", english: "star" }, { thai: "ฝน", english: "rain" }, { thai: "หิมะ", english: "snow" }, { thai: "ลม", english: "wind" }, { thai: "ไฟ", english: "fire" }, { thai: "น้ำแข็ง", english: "ice" }, { thai: "อากาศ", english: "air" }, { thai: "ขยะ", english: "garbage" }, { thai: "ถังขยะ", english: "trash can" }, { thai: "กล่อง", english: "box" }, { thai: "ลูกบอล", english: "ball" }, { thai: "ตุ๊กตา", english: "doll" }
+            ],
+            "วัน เดือน ฤดูกาล": [
+                { thai: "วัน", english: "day" }, { thai: "สัปดาห์", english: "week" }, { thai: "เดือน", english: "month" }, { thai: "ปี", english: "year" }, { thai: "วันนี้", english: "today" }, { thai: "เมื่อวาน", english: "yesterday" }, { thai: "พรุ่งนี้", english: "tomorrow" }, { thai: "เช้า", english: "morning" }, { thai: "บ่าย", english: "afternoon" }, { thai: "เย็น", english: "evening" }, { thai: "กลางคืน", english: "night" }, { thai: "วันอาทิตย์", english: "Sunday" }, { thai: "วันจันทร์", english: "Monday" }, { thai: "วันอังคาร", english: "Tuesday" }, { thai: "วันพุธ", english: "Wednesday" }, { thai: "วันพฤหัสบดี", english: "Thursday" }, { thai: "วันศุกร์", english: "Friday" }, { thai: "วันเสาร์", english: "Saturday" }, { thai: "มกราคม", english: "January" }, { thai: "กุมภาพันธ์", english: "February" }, { thai: "มีนาคม", english: "March" }, { thai: "เมษายน", english: "April" }, { thai: "พฤษภาคม", english: "May" }, { thai: "มิถุนายน", english: "June" }, { thai: "กรกฎาคม", english: "July" }, { thai: "สิงหาคม", english: "August" }, { thai: "กันยายน", english: "September" }, { thai: "ตุลาคม", english: "October" }, { thai: "พฤศจิกายน", english: "November" }, { thai: "ธันวาคม", english: "December" }, { thai: "ฤดูร้อน", english: "summer" }, { thai: "ฤดูฝน", english: "rainy season" }, { thai: "ฤดูหนาว", english: "winter" }
             ]
         };
-        
-        // กรองคำศัพท์ให้เหลือ 25 คำแรกตามที่ร้องขอ (ไม่แก้ไข)
-        const vocabularyData = {};
-        for (const category in fullVocabularyData) {
-            vocabularyData[category] = fullVocabularyData[category].slice(0, 25);
-        }
-
         const categoryPage = document.getElementById('category-page');
         const lessonPage = document.getElementById('lesson-page');
+        const categoryGrid = document.getElementById('category-grid');
         const lessonTitle = document.getElementById('lesson-title');
-        const thaiWordEl = document.getElementById('thai-word');
-        const englishWordEl = document.getElementById('english-word');
+        const thaiWord = document.getElementById('thai-word');
+        const englishWord = document.getElementById('english-word');
+        const playPauseBtn = document.getElementById('play-pause-btn');
         const nextBtn = document.getElementById('next-btn');
         const prevBtn = document.getElementById('prev-btn');
-        const playPauseBtn = document.getElementById('play-pause-btn');
-        const stopBtn = document.getElementById('stop-btn');
         const backToCatBtn = document.getElementById('back-to-cat-btn');
+        const stopBtn = document.getElementById('stop-btn');
 
-        let currentVocab = null; 
         let currentCategoryVocabs = [];
         let currentIndex = 0;
         let isPlaying = false;
+        let voices = [];
+        let currentVocab = null; 
 
-        // สีและไอคอนสำหรับ 17 หมวดหมู่ (เพิ่มหมวดหมู่ใหม่)
-        const categoryColors = {
-            "สัตว์": "#FF4081", 
-            "ร่างกาย": "#2196F3", 
-            "อุปกรณ์การเรียน": "#4CAF50", 
-            "ครอบครัว": "#FF9800", 
-            "อาหารและเครื่องดื่ม": "#9C27B0", 
-            "เสื้อผ้าและเครื่องแต่งกาย": "#3F51B5", 
-            "กีฬา": "#673AB7", 
-            "พืชผักผลไม้": "#8BC34A", 
-            "สี": "#00BCD4", 
-            "ตัวเลข": "#F44336", 
-            "รูปทรง": "#FFEB3B", 
-            "อารมณ์": "#607D8B", 
-            "สถานที่": "#795548", 
-            "ยานพาหนะ": "#009688", 
-            "อาชีพ": "#E91E63", 
-            "กริยา": "#03A9F4", 
-            "ธรรมชาติ": "#004D40", 
-            "เวลา": "#FF5722", 
-            "ทิศทาง": "#8BC34A",
-            "เครื่องหมายพิเศษ": "#FFD700" /* Gold color for new category */
-        };
-        
-        // ไอคอน (เพิ่มไอคอนสำหรับหมวดหมู่ใหม่)
-        const categoryIcons = {
-            "สัตว์": "🐶",
-            "ร่างกาย": "👤",
-            "อุปกรณ์การเรียน": "📚",
-            "ครอบครัว": "👨‍👩‍👧‍👦",
-            "อาหารและเครื่องดื่ม": "🍔",
-            "เสื้อผ้าและเครื่องแต่งกาย": "👚",
-            "กีฬา": "⚽",
-            "พืชผักผลไม้": "🍎",
-            "สี": "🎨",
-            "ตัวเลข": "🔢",
-            "รูปทรง": "🔺",
-            "อารมณ์": "😊",
-            "สถานที่": "🗺️",
-            "ยานพาหนะ": "🚗",
-            "อาชีพ": "🧑‍💼",
-            "กริยา": "🏃‍♂️",
-            "ธรรมชาติ": "☀️",
-            "เวลา": "⏰",
-            "ทิศทาง": "⬆️",
-            "เครื่องหมายพิเศษ": "⁉️" /* Icon for new category */
-        };
+        // --- Web Speech API ---
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = () => {
+                voices = window.speechSynthesis.getVoices();
+            };
+        }
+        function speakText(text, lang, onEndCallback = null) {
+            if (!('speechSynthesis' in window)) return;
+            
+            // ยกเลิกการอ่านที่ค้างอยู่
+            window.speechSynthesis.cancel(); 
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = lang;
+            
+            // ตั้งค่าเสียงและอัตราเร็ว
+            if (lang === 'th-TH') {
+                utterance.volume = 1.0; 
+                utterance.rate = 1.1; 
+            } else {
+                utterance.volume = 1.0; 
+                utterance.rate = 1.0; 
+            }
 
-        function createCategoryButtons() {
-            const grid = document.getElementById('category-grid');
-            grid.innerHTML = '';
+            let targetVoice = null;
+            if (lang === 'th-TH') {
+                targetVoice = voices.find(v => v.lang.startsWith('th-TH') && v.name.includes('Lekha'));
+                if (!targetVoice) targetVoice = voices.find(v => v.lang.startsWith('th-TH'));
+            } else if (lang === 'en-US') {
+                targetVoice = voices.find(v => v.lang.startsWith('en-US') && v.name.includes('Samantha'));
+                if (!targetVoice) targetVoice = voices.find(v => v.lang.startsWith('en-US'));
+            }
             
-            const categoryOrder = Object.keys(vocabularyData);
+            if (targetVoice) {
+                utterance.voice = targetVoice;
+            }
+
+            // ใช้ onend เพื่อควบคุมลำดับการอ่าน (สำหรับ AutoPlay)
+            if (onEndCallback) {
+                utterance.onend = onEndCallback;
+            } else {
+                utterance.onend = () => {}; 
+            }
             
-            categoryOrder.forEach(category => {
-                const button = document.createElement('button');
-                button.className = 'category-button';
-                // ใช้สีที่กำหนดใน categoryColors
-                button.style.backgroundColor = categoryColors[category];
-                button.innerHTML = `<span class="category-icon">${categoryIcons[category]}</span>${category}`;
-                button.onclick = () => loadLesson(category); 
-                grid.appendChild(button);
-            });
+            window.speechSynthesis.speak(utterance);
         }
 
-        function loadLesson(category) {
+        // Helper function to dynamically darken a color for the box-shadow
+        function getDarkerColor(hex, percent) {
+            const num = parseInt(hex.slice(1), 16);
+            const amt = Math.round(2.55 * percent * 100);
+            const R = (num >> 16) - amt;
+            const G = (num >> 8 & 0x00FF) - amt;
+            const B = (num & 0x0000FF) - amt;
+
+            return '#' + (0x1000000 + (R<255?R<1?0:R:255)*0x10000 + (G<255?G<1?0:G:255)*0x100 + (B<255?B<1?0:B:255)).toString(16).slice(1);
+        }
+
+        function createCategoryButtons() {
+            const categoryMap = {
+                "สัตว์": "🐶",
+                "ร่างกาย": "👦",
+                "อุปกรณ์การเรียน": "📚",
+                "ครอบครัว": "👨‍👩‍👧",
+                "อาหารและเครื่องดื่ม": "🍔",
+                "เสื้อผ้าและเครื่องแต่งกาย": "👕",
+                "กีฬา": "⚽",
+                "พืชผักผลไม้": "🍎",
+                "สี": "🎨",
+                "ตัวเลข": "🔢",
+                "รูปทรง": "🔵",
+                "อารมณ์และความรู้สึก": "😊",
+                "สถานที่": "🗺️",
+                "ยานพาหนะ": "🚗",
+                "อาชีพ": "🧑‍💼",
+                "คำกริยาพื้นฐาน": "✍️",
+                "ธรรมชาติ": "☀️",
+                "เวลา": "⏰",
+                "ทิศทาง": "⬆️",
+                "สถานที่และสิ่งของ": "🏠",
+                "วัน เดือน ฤดูกาล": "📅",
+                "กีฬาต่างๆ": "🏀"
+            };
+
+            const categoryColors = {
+                "สัตว์": "#FFD1DC", 
+                "ร่างกาย": "#97C0E7", 
+                "อุปกรณ์การเรียน": "#FFC06E", 
+                "ครอบครัว": "#FFB3D9", 
+                "อาหารและเครื่องดื่ม": "#A3E7B2", 
+                "เสื้อผ้าและเครื่องแต่งกาย": "#C7A7E7", 
+                "กีฬา": "#FF8C00", 
+                "พืชผักผลไม้": "#689F38",
+                "สี": "#008080", 
+                "ตัวเลข": "#8B0000", 
+                "รูปทรง": "#DAA520", 
+                "อารมณ์และความรู้สึก": "#ADFF2F", // ใช้สีนี้
+                "สถานที่": "#A0522D", 
+                "ยานพาหนะ": "#6B8E23", 
+                "อาชีพ": "#DC143C", 
+                "คำกริยาพื้นฐาน": "#00CED1",
+                "ธรรมชาติ": "#191970",
+                "เวลา": "#FF8C00", 
+                "ทิศทาง": "#3CB371",
+                "สถานที่และสิ่งของ": "#FFFF8F",
+                "วัน เดือน ฤดูกาล": "#FF4500",
+                "กีฬาต่างๆ": "#20B2AA"
+            };
+
+
+            for (const category in vocabularyData) {
+                const button = document.createElement('button');
+                button.className = 'category-button';
+                
+                const icon = categoryMap[category] || '';
+                
+                button.innerHTML = `<span class="category-icon">${icon}</span> ${category}`;
+                
+                // ใช้สีอ่อนเป็นพื้นหลัง
+                button.style.backgroundColor = categoryColors[category] || '#e1bee7';
+                
+                // คำนวณสีเงาให้มืดลง
+                const shadowColor = getDarkerColor(button.style.backgroundColor, 0.2);
+                
+                // ปรับเงาให้เข้ากับสีใหม่
+                button.style.boxShadow = `0 4px 0 ${shadowColor}`;
+                button.onmouseover = () => button.style.boxShadow = `0 7px 0 ${shadowColor}`;
+                button.onmouseleave = () => button.style.boxShadow = `0 4px 0 ${shadowColor}`;
+                button.onmousedown = () => {
+                    button.style.transform = 'translateY(2px)';
+                    button.style.boxShadow = `0 2px 0 ${shadowColor}`;
+                };
+                button.onmouseup = () => {
+                    button.style.transform = 'translateY(0)';
+                    button.style.boxShadow = `0 4px 0 ${shadowColor}`;
+                };
+                
+                button.addEventListener('click', () => startLesson(category));
+                categoryGrid.appendChild(button);
+            }
+        }
+
+        function startLesson(category) {
             currentCategoryVocabs = vocabularyData[category];
-            currentIndex = 0;
             lessonTitle.textContent = category;
+            currentIndex = 0;
+            displayVocab(true); 
             categoryPage.style.display = 'none';
-            lessonPage.style.display = 'flex'; 
-            displayVocab();
+            lessonPage.style.display = 'flex';
             updateButtonState();
         }
 
-        function displayVocab() {
+        function displayVocab(isInitialLoad = false) {
+            // ตรวจสอบสถานะการจบ
             if (currentIndex >= currentCategoryVocabs.length) {
-                thaiWordEl.textContent = "จบแล้ว!";
-                englishWordEl.textContent = "Finished!";
-                stopAutoPlay();
-                nextBtn.disabled = true;
-                prevBtn.disabled = true;
+                // **แสดงข้อความตามที่ลูกค้าร้องขอ**
+                thaiWord.textContent = "จบแล้ว! แล้วพบกันใหม่นะ";
+                englishWord.textContent = "Finished!";
+                stopAutoPlay(); 
+                updateButtonState();
                 return;
             }
-            
-            if (currentCategoryVocabs.length > 0) {
-                currentVocab = currentCategoryVocabs[currentIndex]; 
-                thaiWordEl.textContent = currentVocab.thai;
-                englishWordEl.textContent = currentVocab.english;
-            }
-        }
 
-        function nextVocab() {
-            stopAutoPlay();
-            nextBtn.disabled = false;
-            prevBtn.disabled = false;
+            currentVocab = currentCategoryVocabs[currentIndex];
+            thaiWord.textContent = currentVocab.thai;
+            englishWord.textContent = currentVocab.english;
 
-            if (currentIndex < currentCategoryVocabs.length - 1) {
-                currentIndex++;
-                displayVocab();
-                updateButtonState();
-            } else {
-                 currentIndex = currentCategoryVocabs.length;
-                 displayVocab();
-            }
-        }
-
-        function prevVocab() {
-            stopAutoPlay();
-            if (currentIndex > 0) {
-                currentIndex--;
-                displayVocab();
-                updateButtonState();
+            if (!isPlaying && isInitialLoad) { 
+                // อ่านเฉพาะภาษาไทยเมื่อเริ่มต้นบทเรียน (ถ้าไม่ได้อยู่ในโหมด AutoPlay)
+                 speakText(currentVocab.thai, 'th-TH'); 
             }
         }
 
         function updateButtonState() {
-            nextBtn.disabled = false;
-            prevBtn.disabled = false;
-
-            if (currentIndex === 0) {
-                prevBtn.disabled = true;
-            }
-            if (currentIndex === currentCategoryVocabs.length - 1) {
-                nextBtn.disabled = true;
-            }
-            if (currentIndex >= currentCategoryVocabs.length) {
-                 nextBtn.disabled = true; 
-            }
+            prevBtn.disabled = currentIndex === 0;
+            // ปิดปุ่ม Next เมื่ออยู่คำสุดท้าย หรือหลังจากจบแล้ว
+            nextBtn.disabled = currentIndex >= currentCategoryVocabs.length - 1; 
             
-            if (isPlaying) {
-                playPauseBtn.textContent = 'Pause ⏸️';
+            // ถ้าแสดงข้อความจบแล้ว ให้ปิดปุ่มควบคุมทั้งหมด ยกเว้น Back
+            if (currentIndex >= currentCategoryVocabs.length) {
+                nextBtn.disabled = true;
+                prevBtn.disabled = true;
+                playPauseBtn.disabled = true;
+                stopBtn.disabled = true;
             } else {
-                playPauseBtn.textContent = 'Play ▶️';
+                playPauseBtn.disabled = false;
+                stopBtn.disabled = false;
             }
+
+            playPauseBtn.textContent = isPlaying ? 'Pause ⏸️' : 'Play ▶️';
         }
-        
-        // ** ฟังก์ชันแก้ไขปัญหาการเล่นอัตโนมัติ ** (ไม่แก้ไขเนื้อหาสคริปต์)
+
+        // ** ฟังก์ชันควบคุมการเล่นอัตโนมัติ (แก้ไขไม่ให้วนซ้ำ) **
         function playCurrentVocabAuto() {
-            if (!isPlaying) {
+            if (!isPlaying || currentIndex >= currentCategoryVocabs.length) {
                 window.speechSynthesis.cancel();
+                if (currentIndex >= currentCategoryVocabs.length) {
+                     displayVocab(); // แสดงข้อความจบ
+                }
                 return;
             }
-
-            if (currentIndex >= currentCategoryVocabs.length) {
-                currentIndex = 0; 
-            }
             
-            displayVocab();
-            updateButtonState();
-
             const currentItem = currentCategoryVocabs[currentIndex];
+            displayVocab(); // อัปเดตหน้าจอ
             
-            const thaiUtterance = new SpeechSynthesisUtterance(currentItem.thai);
-            thaiUtterance.lang = 'th-TH';
-
-            const englishUtterance = new SpeechSynthesisUtterance(currentItem.english);
-            englishUtterance.lang = 'en-US';
-
-            const voices = window.speechSynthesis.getVoices();
-            const thaiVoice = voices.find(v => v.lang === 'th-TH' && v.name.includes('Lekha'));
-            const englishVoice = voices.find(v => v.lang === 'en-US' && v.name.includes('Samantha'));
-            
-            if (thaiVoice) {
-                thaiUtterance.voice = thaiVoice;
-            }
-            if (englishVoice) {
-                englishUtterance.voice = englishVoice;
-            }
-
-            englishUtterance.addEventListener('end', () => {
-                if (!isPlaying) return;
-                setTimeout(() => {
-                    currentIndex++;
-                    updateButtonState();
-                    playCurrentVocabAuto(); 
-                }, 1000); 
+            // 1. อ่านภาษาไทย
+            speakText(currentItem.thai, 'th-TH', () => {
+                // 2. เมื่อภาษาไทยจบ: อ่านภาษาอังกฤษต่อ
+                if (isPlaying) {
+                     setTimeout(() => { 
+                        speakText(currentItem.english, 'en-US', () => {
+                            // 3. เมื่อภาษาอังกฤษจบ: ไปคำถัดไป
+                            if (isPlaying) {
+                                currentIndex++;
+                                updateButtonState();
+                                
+                                // ** ตรวจสอบว่าถึงคำสุดท้ายแล้วหรือไม่ ก่อนเรียกซ้ำ **
+                                if (currentIndex < currentCategoryVocabs.length) {
+                                    setTimeout(playCurrentVocabAuto, 1000); // หน่วง 1 วินาที ก่อนไปคำถัดไป
+                                } else {
+                                    // ถึงคำสุดท้าย: แสดงข้อความจบและหยุดเล่น
+                                    displayVocab(); 
+                                    stopAutoPlay();
+                                }
+                            }
+                        });
+                    }, 500); // หน่วง 0.5 วินาที
+                }
             });
-
-            thaiUtterance.addEventListener('end', () => {
-                if (!isPlaying) return;
-                setTimeout(() => {
-                    window.speechSynthesis.speak(englishUtterance);
-                }, 500); 
-            });
-
-            window.speechSynthesis.cancel();
-            window.speechSynthesis.speak(thaiUtterance);
         }
-        
+
         function toggleAutoPlay() {
             if (isPlaying) {
                 stopAutoPlay();
             } else {
                 isPlaying = true;
                 updateButtonState();
-                
+                // ถ้าจบแล้วและกด Play ให้อ่านตั้งแต่คำแรกใหม่
                 if (currentIndex >= currentCategoryVocabs.length) {
                     currentIndex = 0; 
                 }
-                
                 playCurrentVocabAuto();
             }
-        }
-        
-        function speakText(text, lang) {
-            stopAutoPlay(); 
-            
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = lang;
-            
-            const voice = window.speechSynthesis.getVoices().find(v => {
-                if (lang === 'th-TH') return v.lang.includes('th') && v.name.includes('Lekha');
-                if (lang === 'en-US') return v.lang.includes('en') && v.name.includes('Samantha');
-                return v.lang.includes(lang.substring(0, 2));
-            });
-            if (voice) {
-                utterance.voice = voice;
-            }
-            
-            window.speechSynthesis.cancel(); 
-            window.speechSynthesis.speak(utterance);
         }
 
         function stopAutoPlay() {
@@ -564,12 +622,34 @@
             window.speechSynthesis.cancel();
         }
 
+        function nextVocab() {
+            stopAutoPlay();
+            if (currentIndex < currentCategoryVocabs.length) {
+                currentIndex++;
+                displayVocab();
+            }
+            updateButtonState();
+        }
+        
+        function prevVocab() {
+            stopAutoPlay();
+            if (currentIndex > 0) {
+                // ถ้ามาจากตำแหน่ง "จบแล้ว" ให้ถอยกลับไปที่คำสุดท้ายจริง
+                if (currentIndex >= currentCategoryVocabs.length) {
+                     currentIndex = currentCategoryVocabs.length - 1;
+                } else {
+                     currentIndex--;
+                }
+                displayVocab();
+                updateButtonState();
+            }
+        }
+
         function goToCategoryPage() {
             stopAutoPlay();
-            nextBtn.disabled = false;
-            prevBtn.disabled = false;
             lessonPage.style.display = 'none';
             categoryPage.style.display = 'flex'; 
+            window.speechSynthesis.cancel();
         }
 
         // Event Listeners
@@ -579,8 +659,7 @@
         stopBtn.addEventListener('click', stopAutoPlay);
         backToCatBtn.addEventListener('click', goToCategoryPage);
 
-        // ** การตั้งค่าเริ่มต้น **
-        document.addEventListener('DOMContentLoaded', createCategoryButtons);
+        // Initial setup
         createCategoryButtons();
     </script>
 </body>
