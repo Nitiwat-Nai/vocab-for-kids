@@ -19,7 +19,7 @@
             --color-accent: #FFFF33; /* Electric Yellow - สีเน้นคำศัพท์ */
             --color-background-start: #4D79FF; /* Electric Blue */
             --color-background-end: #FF4DFF; /* Electric Magenta */
-            --text-color: #000033; /* Dark Navy Blue */
+            --text-color: #000033; /* Dark Navy Blue (ใช้แทนสีดำ/ขาว เพื่อให้ดูสดใสขึ้น) */
             --card-color: #FFFFFF; /* White */
             --shadow-light: rgba(255, 255, 255, 0.7);
             --shadow-dark: rgba(0, 0, 0, 0.4);
@@ -42,7 +42,7 @@
         }
 
         /* ------------------------------------------- */
-        /* Core Layout: Responsive Container (สไตล์ A-Z) */
+        /* Core Layout: Responsive Container */
         /* ------------------------------------------- */
         .container {
             background-color: var(--card-color);
@@ -51,8 +51,8 @@
             /* เงาที่โดดเด่น */
             box-shadow: 0 10px 30px var(--shadow-dark); 
             width: 100%;
-            max-width: 550px; /* ขยายความกว้างกว่า A-Z เล็กน้อยเพื่อให้มีที่สำหรับปุ่มหมวดหมู่ */
-            min-height: 80vh;
+            max-width: 550px; 
+            min-height: 80vh; /* ทำให้กรอบหลักสูงขึ้นเพื่อให้พื้นที่แสดงคำศัพท์กว้างขึ้น */
             box-sizing: border-box;
             /* ขอบสีเด่นชัด */
             border: 5px solid var(--color-primary); 
@@ -82,23 +82,21 @@
         .category-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); 
-            gap: 1rem; /* เพิ่มช่องว่าง */
+            gap: 1rem; 
             margin-top: 1rem; 
             padding-right: 2px; 
             overflow-y: auto; 
             flex-grow: 1;
         }
         .category-button {
-            padding: 1.0rem 0.5rem; /* เพิ่ม Padding */
+            padding: 1.0rem 0.5rem; 
             font-size: 1.0em; 
             border-radius: 15px; 
             border: none;
             color: var(--text-color); 
-            background-color: var(--color-secondary); /* ใช้สีสดใส */
+            background-color: var(--color-secondary); 
             font-weight: bold;
             cursor: pointer;
-            
-            /* สไตล์ปุ่มเด่นชัด */
             box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25), 
                         0 8px 15px rgba(0, 0, 0, 0.15); 
             transition: transform 0.1s, box-shadow 0.1s;
@@ -118,9 +116,9 @@
         }
         /* กำหนดสีปุ่มหมวดหมู่สลับกันเพื่อความหลากหลาย */
         .category-button:nth-child(4n+1) { background-color: var(--color-secondary); }
-        .category-button:nth-child(4n+2) { background-color: #FF7F50; /* Coral */ }
-        .category-button:nth-child(4n+3) { background-color: #33A1FF; /* Azure Blue */ }
-        .category-button:nth-child(4n) { background-color: #FFC0CB; /* Pink */ }
+        .category-button:nth-child(4n+2) { background-color: #FF7F50; }
+        .category-button:nth-child(4n+3) { background-color: #33A1FF; }
+        .category-button:nth-child(4n) { background-color: #FFC0CB; }
 
 
         /* ------------------------------------------- */
@@ -133,41 +131,47 @@
             justify-content: space-between; 
         }
         
-        /* Vocab Card - สไตล์ A-Z */
+        /* Vocab Card - ปรับสัดส่วนให้กว้างและใหญ่ขึ้น */
         #vocab-card {
             background-color: var(--color-primary); 
             border-radius: 20px; 
-            padding: 3rem 1.5rem;
-            flex-grow: 1; 
+            padding: 2.5rem 1.5rem; /* ลด Padding เพื่อเพิ่มพื้นที่แสดงคำศัพท์ */
+            flex-grow: 1; /* ใช้พื้นที่การแสดงผลสูงสุด */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            /* เงาและขอบตามสไตล์ A-Z */
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
             border: 3px solid var(--color-accent); 
             margin-top: 0.5rem;
             margin-bottom: 1.5rem;
         }
-        #thai-word {
-            font-size: clamp(3em, 10vw, 5.5em); /* ใหญ่ขึ้น */
-            color: var(--card-color); /* สีขาวเด่น */
+        
+        /* คำศัพท์อังกฤษ: ใหญ่สุดและสีเข้ม */
+        #english-word {
+            font-family: 'Mali', cursive;
+            font-size: clamp(4em, 12vw, 6.5em); /* ใหญ่ขึ้นมาก */
+            color: var(--text-color); /* ใช้สีเข้มเพื่อให้ตัดกับพื้นหลังการ์ดสีสุ่ม */
+            font-weight: 800;
             text-shadow: 3px 3px 0 var(--color-accent), 
                          5px 5px 0 var(--shadow-dark); /* เงา 3D */
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
             line-height: 1.2;
         }
-        #english-word {
-            font-size: clamp(2em, 6vw, 3.5em); 
+        
+        /* คำแปลไทย: ใหญ่ชัดเจน และสีเน้น */
+        #thai-word {
+            font-family: 'Sarabun', sans-serif;
+            font-size: clamp(2.5em, 8vw, 4em); /* ใหญ่ขึ้น */
             color: var(--color-accent); /* สีเหลืองไฟฟ้า */
             font-weight: 700;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
             margin-bottom: 0;
             line-height: 1.2;
         }
-        
+
         /* ------------------------------------------------ */
-        /* Control Buttons (สไตล์ A-Z: ปุ่มมน มีมิติ) */
+        /* Control Buttons */
         /* ------------------------------------------------ */
         .control-row {
             display: flex;
@@ -181,16 +185,13 @@
             color: white;
             padding: 15px 0; 
             border: none; 
-            border-radius: 50px; /* ทำให้โค้งมน */
+            border-radius: 50px; 
             font-size: 1.0em;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.1s ease-out;
-            
             flex-grow: 1; 
             flex-basis: 0; 
-
-            /* มิติ (Overlay Effect) */
             box-shadow: inset 0 2px 3px var(--shadow-light), 
                         0 5px 0 0 rgba(0, 0, 0, 0.3), 
                         0 8px 15px rgba(0, 0, 0, 0.15); 
@@ -215,12 +216,12 @@
                         0 8px 15px rgba(0, 0, 0, 0.15); 
         }
         
-        /* การกำหนดสีปุ่มตามหน้าที่ (ใช้สีสดใสใหม่) */
-        .nav-btn { background-color: #F39C12; }      /* Prev/Next - ส้มสด */
-        .audio-btn { background-color: var(--color-secondary); } /* Listen - เขียวสด */
-        .play-btn { background-color: #9B59B6; } /* Play - ม่วง */
-        .stop-btn { background-color: var(--color-primary); } /* Stop - แดง */
-        .back-btn { background-color: #2ECC71; } /* Back to Categories - เขียวทะเล */
+        /* การกำหนดสีปุ่มตามหน้าที่ */
+        .nav-btn { background-color: #F39C12; }      
+        .audio-btn { background-color: var(--color-secondary); } 
+        .play-btn { background-color: #9B59B6; } 
+        .stop-btn { background-color: var(--color-primary); } 
+        .back-btn { background-color: #2ECC71; } 
 
     </style>
 </head>
@@ -236,8 +237,8 @@
             <h1 id="lesson-title"></h1>
             
             <div id="vocab-card">
-                <span id="thai-word" class="word"></span>
                 <span id="english-word" class="word"></span>
+                <span id="thai-word" class="word"></span>
             </div>
             
             <div class="control-row">
@@ -245,8 +246,8 @@
                 <button id="next-btn" class="nav-btn">ถัดไป ▶️</button>
             </div>
             <div class="control-row">
-                <button onclick="currentVocab && speakText(currentVocab.thai, 'th-TH')" class="audio-btn">ฟัง (ไทย) 🔊</button>
                 <button onclick="currentVocab && speakText(currentVocab.english, 'en-US')" class="audio-btn">Listen (EN) 🔊</button>
+                <button onclick="currentVocab && speakText(currentVocab.thai, 'th-TH')" class="audio-btn">ฟัง (ไทย) 🔊</button>
             </div>
             <div class="control-row">
                 <button id="play-pause-btn" class="play-btn">Play 🔄</button>
@@ -322,14 +323,15 @@
         };
 
         // ------------------------------------------------
-        // JavaScript Logic (มีการแก้ไขใน startLesson)
+        // JavaScript Logic 
         // ------------------------------------------------
         const categoryGrid = document.getElementById('category-grid');
         const categoryPage = document.getElementById('category-page');
         const lessonPage = document.getElementById('lesson-page');
         const lessonTitle = document.getElementById('lesson-title');
+        // IDs ยังคงเดิม แต่ตอนนี้ English อยู่ข้างบน Thai ใน HTML
         const thaiWordDisplay = document.getElementById('thai-word');
-        const englishWordDisplay = document.getElementById('english-word');
+        const englishWordDisplay = document.getElementById('english-word'); 
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
         const playPauseBtn = document.getElementById('play-pause-btn');
@@ -341,7 +343,7 @@
         let isPlaying = false;
         let currentVocab = null;
 
-        // ฟังก์ชันสร้างปุ่มหมวดหมู่
+        // ฟังก์ชันสร้างปุ่มหมวดหมู่ (ไม่มีการเปลี่ยนแปลง)
         function createCategoryButtons() {
             Object.keys(vocabularyData).forEach(category => {
                 const button = document.createElement('button');
@@ -375,7 +377,7 @@
             });
         }
 
-        // ฟังก์ชันเริ่มต้นบทเรียน (แก้ไข: ลบการเล่นอัตโนมัติ)
+        // ฟังก์ชันเริ่มต้นบทเรียน (ไม่มี Auto-Play)
         function startLesson(category) {
             currentCategoryVocabs = vocabularyData[category];
             currentIndex = 0;
@@ -387,14 +389,15 @@
             displayVocab();
             updateButtonState();
             
-            // **แก้ไข:** ลบคำสั่ง speakText() ออก เพื่อให้ไม่เล่นคำแรกอัตโนมัติ
+            // ป้องกันการเล่นคำแรกอัตโนมัติ
             stopAutoPlay(); 
         }
 
-        // ฟังก์ชันแสดงคำศัพท์ปัจจุบัน
+        // ฟังก์ชันแสดงคำศัพท์ปัจจุบัน (ไม่มีการเปลี่ยนแปลง Logic)
         function displayVocab() {
             if (currentIndex < currentCategoryVocabs.length) {
                 currentVocab = currentCategoryVocabs[currentIndex];
+                // แม้จะสลับตำแหน่งใน HTML แต่ JS ยังใช้ ID เดิมเพื่ออัพเดตค่า
                 thaiWordDisplay.textContent = currentVocab.thai;
                 englishWordDisplay.textContent = currentVocab.english;
                 
@@ -409,8 +412,8 @@
                 englishWordDisplay.classList.remove('finished-text');
             } else {
                 // จบบทเรียน
-                thaiWordDisplay.textContent = "เยี่ยมมาก! 🎉";
-                englishWordDisplay.textContent = "Finished!";
+                thaiWordDisplay.textContent = "Finished!";
+                englishWordDisplay.textContent = "เยี่ยมมาก! 🎉";
                 // เพิ่มคลาสพิเศษสำหรับข้อความจบเพื่อให้ดูโดดเด่นขึ้น
                 thaiWordDisplay.classList.add('finished-text');
                 englishWordDisplay.classList.add('finished-text');
@@ -420,7 +423,7 @@
             }
         }
 
-        // ฟังก์ชันอัพเดตสถานะปุ่ม
+        // ฟังก์ชันอัพเดตสถานะปุ่ม (ไม่มีการเปลี่ยนแปลง)
         function updateButtonState() {
             const isFinished = currentIndex >= currentCategoryVocabs.length;
             
@@ -437,20 +440,18 @@
             }
         }
 
-        // ฟังก์ชันแปลงข้อความเป็นเสียงพูด
+        // ฟังก์ชันแปลงข้อความเป็นเสียงพูด (ไม่มีการเปลี่ยนแปลง)
         function speakText(text, lang, callback) {
-            // ยกเลิกเสียงพูดก่อนหน้าเพื่อป้องกันการพูดทับซ้อน (สำคัญสำหรับฟีเจอร์ Auto Play)
             window.speechSynthesis.cancel(); 
             
             if ('speechSynthesis' in window) {
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = lang;
                 utterance.pitch = 1.0;
-                utterance.rate = (lang === 'th-TH') ? 1.0 : 0.9; // ให้ภาษาอังกฤษพูดช้าลงเล็กน้อย
+                utterance.rate = (lang === 'th-TH') ? 1.0 : 0.9; 
 
                 if (callback) {
                     utterance.onend = () => {
-                        // หน่วงเวลาก่อนเรียก callback เพื่อให้เกิดความชัดเจน
                         setTimeout(callback, 200); 
                     };
                 }
@@ -458,21 +459,21 @@
                 window.speechSynthesis.speak(utterance);
             } else {
                 console.log('Speech synthesis not supported in this browser.');
-                if (callback) callback(); // เรียก callback ทันทีหากไม่รองรับ
+                if (callback) callback(); 
             }
         }
 
-        // ฟังก์ชัน Auto Play ต่อเนื่อง
+        // ฟังก์ชัน Auto Play ต่อเนื่อง (มีการสลับลำดับการพูดใน Logic)
         function playCurrentVocabAuto() {
             if (!isPlaying || currentIndex >= currentCategoryVocabs.length) {
                 stopAutoPlay();
                 return;
             }
             
-            // พูดคำไทย
-            speakText(currentVocab.thai, 'th-TH', () => {
-                // พูดคำอังกฤษหลังจากคำไทยจบ
-                speakText(currentVocab.english, 'en-US', () => {
+            // พูดคำอังกฤษก่อน (เพราะ English ขึ้นก่อนในหน้าจอ)
+            speakText(currentVocab.english, 'en-US', () => {
+                // พูดคำไทยหลังจากคำอังกฤษจบ
+                speakText(currentVocab.thai, 'th-TH', () => {
                     if (isPlaying) {
                         currentIndex++;
                         // หน่วงเวลาก่อนแสดงคำถัดไป 1 วินาที 
@@ -486,6 +487,7 @@
             });
         }
 
+        // ฟังก์ชัน Toggle/Stop/Navigation (ไม่มีการเปลี่ยนแปลง Logic)
         function toggleAutoPlay() {
             if (isPlaying) {
                 stopAutoPlay();
@@ -515,7 +517,6 @@
             stopAutoPlay();
             if (currentIndex < currentCategoryVocabs.length) {
                 currentIndex++;
-                // ลบ class finished ออกก่อนถ้ามีการกด Next หลังจาก Restart
                 thaiWordDisplay.classList.remove('finished-text');
                 englishWordDisplay.classList.remove('finished-text');
                 displayVocab();
