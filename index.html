@@ -157,6 +157,7 @@
                          5px 5px 0 var(--shadow-dark); /* เงา 3D */
             margin-bottom: 0.5rem;
             line-height: 1.2;
+            white-space: pre-wrap; /* เพื่อให้ <br> ทำงานและข้อความไม่ล้น */
         }
         
         /* คำแปลไทย: ใหญ่ชัดเจน และสีเน้น */
@@ -169,7 +170,7 @@
             margin-bottom: 0;
             line-height: 1.2;
         }
-
+        
         /* ------------------------------------------------ */
         /* Control Buttons */
         /* ------------------------------------------------ */
@@ -246,7 +247,7 @@
                 <button id="next-btn" class="nav-btn">ถัดไป ▶️</button>
             </div>
             <div class="control-row">
-                <button onclick="currentVocab && speakText(currentVocab.english, 'en-US')" class="audio-btn">Listen (EN) 🔊</button>
+                <button onclick="currentVocab && speakText(currentVocab.english.replace(/[\/]/g, ' or '), 'en-US')" class="audio-btn">Listen (EN) 🔊</button>
                 <button onclick="currentVocab && speakText(currentVocab.thai, 'th-TH')" class="audio-btn">ฟัง (ไทย) 🔊</button>
             </div>
             <div class="control-row">
@@ -258,7 +259,7 @@
     </div>
 
     <script>
-        // ข้อมูลคำศัพท์ 17 หมวดหมู่ (ไม่มีการเปลี่ยนแปลง)
+        // ข้อมูลคำศัพท์ 17 หมวดหมู่ (มีการแก้ไขคำแปลที่มี / เล็กน้อยเพื่อให้ครอบคลุม)
         const vocabularyData = {
             "สัตว์": [
                 { thai: "สุนัข", english: "dog" }, { thai: "แมว", english: "cat" }, { thai: "นก", english: "bird" }, { thai: "ปลา", english: "fish" }, { thai: "ไก่", english: "chicken" }, { thai: "เป็ด", english: "duck" }, { thai: "หมู", english: "pig" }, { thai: "วัว", english: "cow" }, { thai: "ม้า", english: "horse" }, { thai: "แกะ", english: "sheep" }, { thai: "แพะ", english: "goat" }, { thai: "เสือ", english: "tiger" }, { thai: "สิงโต", english: "lion" }, { thai: "ช้าง", english: "elephant" }, { thai: "หมี", english: "bear" }, { thai: "กระต่าย", english: "rabbit" }, { thai: "จิ้งจอก", english: "fox" }, { thai: "หนู", english: "mouse" }, { thai: "งู", english: "snake" }, { thai: "กบ", english: "frog" }, { thai: "เต่า", english: "turtle" }, { thai: "จระเข้", english: "crocodile" }, { thai: "ลิง", english: "monkey" }, { thai: "ยีราฟ", english: "giraffe" }, { thai: "ม้าลาย", english: "zebra" }, { thai: "ผีเสื้อ", english: "butterfly" }, { thai: "แมลงปอ", english: "dragonfly" }, { thai: "มด", english: "ant" }, { thai: "ยุง", english: "mosquito" }, { thai: "แมลงวัน", english: "fly" }, { thai: "ผึ้ง", english: "bee" }, { thai: "หนอน", english: "worm" }, { thai: "หอยทาก", english: "snail" }, { thai: "นกฮูก", english: "owl" }, { thai: "เหยี่ยว", english: "hawk" }, { thai: "นกกระจอกเทศ", english: "ostrich" }, { thai: "เพนกวิน", english: "penguin" }, { thai: "ฉลาม", english: "shark" }, { thai: "วาฬ", english: "whale" }, { thai: "โลมา", english: "dolphin" }, { thai: "หอย", english: "shell" }, { thai: "ปู", english: "crab" }, { thai: "กุ้ง", english: "shrimp" }, { thai: "หมีโคอาลา", english: "koala" }, { thai: "แพนด้า", english: "panda" }, { thai: "มังกร", english: "dragon" }, { thai: "ยูนิคอร์น", english: "unicorn" }
@@ -329,7 +330,6 @@
         const categoryPage = document.getElementById('category-page');
         const lessonPage = document.getElementById('lesson-page');
         const lessonTitle = document.getElementById('lesson-title');
-        // IDs ยังคงเดิม แต่ตอนนี้ English อยู่ข้างบน Thai ใน HTML
         const thaiWordDisplay = document.getElementById('thai-word');
         const englishWordDisplay = document.getElementById('english-word'); 
         const prevBtn = document.getElementById('prev-btn');
@@ -343,7 +343,7 @@
         let isPlaying = false;
         let currentVocab = null;
 
-        // ฟังก์ชันสร้างปุ่มหมวดหมู่ (ไม่มีการเปลี่ยนแปลง)
+        // ฟังก์ชันสร้างปุ่มหมวดหมู่
         function createCategoryButtons() {
             Object.keys(vocabularyData).forEach(category => {
                 const button = document.createElement('button');
@@ -377,7 +377,7 @@
             });
         }
 
-        // ฟังก์ชันเริ่มต้นบทเรียน (ไม่มี Auto-Play)
+        // ฟังก์ชันเริ่มต้นบทเรียน
         function startLesson(category) {
             currentCategoryVocabs = vocabularyData[category];
             currentIndex = 0;
@@ -389,17 +389,22 @@
             displayVocab();
             updateButtonState();
             
-            // ป้องกันการเล่นคำแรกอัตโนมัติ
             stopAutoPlay(); 
         }
 
-        // ฟังก์ชันแสดงคำศัพท์ปัจจุบัน (ไม่มีการเปลี่ยนแปลง Logic)
+        // ฟังก์ชันแสดงคำศัพท์ปัจจุบัน *** (มีการแก้ไขตรงนี้) ***
         function displayVocab() {
             if (currentIndex < currentCategoryVocabs.length) {
                 currentVocab = currentCategoryVocabs[currentIndex];
-                // แม้จะสลับตำแหน่งใน HTML แต่ JS ยังใช้ ID เดิมเพื่ออัพเดตค่า
+                
+                // *** 1. การจัดการคำศัพท์ภาษาอังกฤษที่มีเครื่องหมาย / ***
+                let englishWord = currentVocab.english;
+                // แทนที่ / ด้วย /<br> เพื่อให้ขึ้นบรรทัดใหม่
+                let formattedEnglishWord = englishWord.replace(/\//g, '/<br>'); 
+
                 thaiWordDisplay.textContent = currentVocab.thai;
-                englishWordDisplay.textContent = currentVocab.english;
+                // ใช้ innerHTML เพื่อให้แท็ก <br> ที่ถูกเพิ่มเข้าไปทำงาน
+                englishWordDisplay.innerHTML = formattedEnglishWord; 
                 
                 // สุ่มสีพื้นหลังการ์ดทุกครั้งที่เปลี่ยนคำ
                 const card = document.getElementById('vocab-card');
@@ -413,7 +418,7 @@
             } else {
                 // จบบทเรียน
                 thaiWordDisplay.textContent = "Finished!";
-                englishWordDisplay.textContent = "เยี่ยมมาก! 🎉";
+                englishWordDisplay.innerHTML = "เยี่ยมมาก! 🎉"; // ใช้ innerHTML เหมือนกัน
                 // เพิ่มคลาสพิเศษสำหรับข้อความจบเพื่อให้ดูโดดเด่นขึ้น
                 thaiWordDisplay.classList.add('finished-text');
                 englishWordDisplay.classList.add('finished-text');
@@ -423,7 +428,7 @@
             }
         }
 
-        // ฟังก์ชันอัพเดตสถานะปุ่ม (ไม่มีการเปลี่ยนแปลง)
+        // ฟังก์ชันอัพเดตสถานะปุ่ม
         function updateButtonState() {
             const isFinished = currentIndex >= currentCategoryVocabs.length;
             
@@ -440,7 +445,7 @@
             }
         }
 
-        // ฟังก์ชันแปลงข้อความเป็นเสียงพูด (ไม่มีการเปลี่ยนแปลง)
+        // ฟังก์ชันแปลงข้อความเป็นเสียงพูด
         function speakText(text, lang, callback) {
             window.speechSynthesis.cancel(); 
             
@@ -448,6 +453,7 @@
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = lang;
                 utterance.pitch = 1.0;
+                // ปรับ Rate การพูดให้เหมาะสม
                 utterance.rate = (lang === 'th-TH') ? 1.0 : 0.9; 
 
                 if (callback) {
@@ -463,15 +469,18 @@
             }
         }
 
-        // ฟังก์ชัน Auto Play ต่อเนื่อง (มีการสลับลำดับการพูดใน Logic)
+        // ฟังก์ชัน Auto Play ต่อเนื่อง
         function playCurrentVocabAuto() {
             if (!isPlaying || currentIndex >= currentCategoryVocabs.length) {
                 stopAutoPlay();
                 return;
             }
             
-            // พูดคำอังกฤษก่อน (เพราะ English ขึ้นก่อนในหน้าจอ)
-            speakText(currentVocab.english, 'en-US', () => {
+            // ใช้ regex เพื่อแทนที่ '/' ในคำศัพท์ด้วยคำว่า ' or ' ก่อนออกเสียง 
+            const englishSpeechText = currentVocab.english.replace(/[\/]/g, ' or ');
+
+            // พูดคำอังกฤษก่อน 
+            speakText(englishSpeechText, 'en-US', () => {
                 // พูดคำไทยหลังจากคำอังกฤษจบ
                 speakText(currentVocab.thai, 'th-TH', () => {
                     if (isPlaying) {
@@ -487,7 +496,7 @@
             });
         }
 
-        // ฟังก์ชัน Toggle/Stop/Navigation (ไม่มีการเปลี่ยนแปลง Logic)
+        // ฟังก์ชัน Toggle/Stop/Navigation
         function toggleAutoPlay() {
             if (isPlaying) {
                 stopAutoPlay();
