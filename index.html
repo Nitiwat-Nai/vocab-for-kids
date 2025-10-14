@@ -1,26 +1,9 @@
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HRE Vocab Fun! 🌈</title> 
-    <link rel="manifest" href="/mk-vocab-p1-game/manifest.json">
-    <link rel="apple-touch-icon" href="/mk-vocab-p1-game/images/icon-192x192.png">
-    
-    <style>
-    ```
-
-และนี่คือโค้ด **Vocab.html** ฉบับสมบูรณ์ที่แก้ไข `Title` และมีฟังก์ชันการเว้นบรรทัดสำหรับคำศัพท์ที่มี `/` ครบถ้วนแล้วครับ
-
----
-
-## โค้ดที่แก้ไข (Vocab.html ฉบับเต็ม)
-
-```html
 <!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HRE Vocab Fun! 🌈</title>
+    <title>MK Vocab Fun! 🌈</title>
     <link rel="manifest" href="/mk-vocab-p1-game/manifest.json">
     <link rel="apple-touch-icon" href="/mk-vocab-p1-game/images/icon-192x192.png">
     
@@ -236,7 +219,7 @@
         
         /* การกำหนดสีปุ่มตามหน้าที่ */
         .nav-btn { background-color: #F39C12; }      
-        .audio-btn { background-color: #4DFF90; } /* ใช้สีเขียวสดใส */
+        .audio-btn { background-color: var(--color-secondary); } 
         .play-btn { background-color: #9B59B6; } 
         .stop-btn { background-color: var(--color-primary); } 
         .back-btn { background-color: #2ECC71; } 
@@ -409,18 +392,19 @@
             stopAutoPlay(); 
         }
 
-        // ฟังก์ชันแสดงคำศัพท์ปัจจุบัน
+        // ฟังก์ชันแสดงคำศัพท์ปัจจุบัน *** (มีการแก้ไขตรงนี้) ***
         function displayVocab() {
             if (currentIndex < currentCategoryVocabs.length) {
                 currentVocab = currentCategoryVocabs[currentIndex];
                 
-                // *** การแก้ไข: จัดรูปแบบคำศัพท์อังกฤษให้ขึ้นบรรทัดใหม่เมื่อมีเครื่องหมาย '/' ***
+                // *** 1. การจัดการคำศัพท์ภาษาอังกฤษที่มีเครื่องหมาย / ***
                 let englishWord = currentVocab.english;
-                let formattedEnglishWord = englishWord.replace(/\//g, '/<br>'); // แทนที่ / ด้วย /<br>
-                
+                // แทนที่ / ด้วย /<br> เพื่อให้ขึ้นบรรทัดใหม่
+                let formattedEnglishWord = englishWord.replace(/\//g, '/<br>'); 
+
                 thaiWordDisplay.textContent = currentVocab.thai;
-                // *** การแก้ไข: เปลี่ยนไปใช้ innerHTML เพื่อให้แท็ก <br> ทำงาน ***
-                englishWordDisplay.innerHTML = formattedEnglishWord;
+                // ใช้ innerHTML เพื่อให้แท็ก <br> ที่ถูกเพิ่มเข้าไปทำงาน
+                englishWordDisplay.innerHTML = formattedEnglishWord; 
                 
                 // สุ่มสีพื้นหลังการ์ดทุกครั้งที่เปลี่ยนคำ
                 const card = document.getElementById('vocab-card');
